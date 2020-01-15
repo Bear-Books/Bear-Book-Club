@@ -1,2 +1,15 @@
 <h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<p>Welcome to yurt</p>
+
+<p id = 'test'>test</p>
+
+<script>
+    const api_url = 'https://openlibrary.org/api/books?bibkeys=ISBN:0451526538&callback=mycallback';
+    async function get_title(){
+        const response = await fetch(api_url);
+        const data await response.json();
+        const {ISBN} = data;
+
+        document.getElementById('test').textContext = ISBN;
+    }
+</script>
