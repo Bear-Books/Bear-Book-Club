@@ -3,10 +3,10 @@ html,body {
 }
 
 .first {
-  height:100vh;
-  min-height:400px;
-  background-size:cover;
-  background-image:url('/images/big_background.jpg');
+  
+  min-height:100vh;
+  background-repeat: no-repeat;
+  background-image:url('/images/books.jpg');
 }
 
 .affix {
