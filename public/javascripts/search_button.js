@@ -23,7 +23,8 @@ $(document).ready(
                     $("#counter").text(i);
                     posts += data.docs[i].title+"<br/>";
                     posts += data.docs[i].isbn[0];
-
+                    posts += "<img src='http://covers.openlibrary.org/b/isbn/"+data.docs[i].isbn[0]+"-S.jpg'/>";
+                    $.ajax({url:'http://covers.openlibrary.org/b/isbn/'+value.toString(data.docs[i].isbn[0])+'-S.jpg',type:'HEAD',error:do_something});
                     $.get('http://covers.openlibrary.org/b/isbn/'+data.docs[i].isbn[0]+'-S.jpg').done(function () {
                         posts += "<img src='http://covers.openlibrary.org/b/isbn/"+data.docs[i].isbn[0]+"-S.jpg'/>";
                       }).fail(function () {
