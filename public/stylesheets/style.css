@@ -3,14 +3,15 @@ html,body {
 }
 
 .first {
-
-  min-height:100vh;
-  background-repeat: no-repeat;
+  height:100vh;
+  min-height:400px;
+  
+  background-size:cover;
   background-image:url('/images/books.jpg');
 }
 
 .navbar{
-  background: rgba(175, 25, 25, 0.125) ;
+  background: rgba(196, 132, 79, 0.247) ;
 
 }
 
@@ -34,7 +35,7 @@ html,body {
      -webkit-transition:all 0.5s ease;
      -moz-transition:all 0.5s ease; 
      -o-transition:all 0.5s ease;         
-    transition:all 0.5s ease;  
+     transition:all 0.5s ease;  
     }
 }
 
