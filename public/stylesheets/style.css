@@ -3,14 +3,20 @@ html,body {
 }
 
 .first {
-  
+
   min-height:100vh;
   background-repeat: no-repeat;
   background-image:url('/images/books.jpg');
 }
 
+.navbar{
+  background: rgba(175, 25, 25, 0.125) ;
+
+}
+
 .affix {
   background-color: #eee;
+ 
   -webkit-transition:padding 0.2s ease-out;
   -moz-transition:padding 0.2s ease-out;  
   -o-transition:padding 0.2s ease-out;         
@@ -20,19 +26,22 @@ html,body {
 @media (min-width:768px) {
     .affix-top {
       /* navbar style at top */
-      background-color:transparent;
-      border-color:transparent;
-      padding: 15px;
-      -webkit-transition:all 0.5s ease;
-      -moz-transition:all 0.5s ease; 
-      -o-transition:all 0.5s ease;         
-      transition:all 0.5s ease;  
+     background-color:transparent;
+     border-color:transparent; 
+     
+     
+     padding: 15px;
+     -webkit-transition:all 0.5s ease;
+     -moz-transition:all 0.5s ease; 
+     -o-transition:all 0.5s ease;         
+    transition:all 0.5s ease;  
     }
 }
 
 nav .navbar-nav .nav-link,
 nav .navbar-brand {
    color: #000;
+   
 }
 
 section {
