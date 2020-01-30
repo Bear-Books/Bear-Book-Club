@@ -1,35 +1,40 @@
 $(document).ready(
     function() {
 
-/*
-    $("#search_bar").click(function(){
-        var str = $("#search_box").val();
-        alert(str);
-        $("#results").append("yes");
-    });
-    */
 
+        //takes the search bar value and puts it through
+        //open librarys search api. returns title, author and isbn
+        //of the books
     $("#search_bar").click(function(){
         $("#results").text("One Moment...");
         $.ajax({
             type: 'GET',
             dataType: "json",
-            url: 'http://openlibrary.org/search.json?q='+$("#search_box").val(),
+            url: 'http://openlibrary.org/search.json?title='+$("#search_box").val(),
             success: function (data) {
+
                 var posts = "";
                 $("#counter").text(data.docs.length);
-                for(var i = 0; i < data.docs.length; i++){
-                    //alert(data.docs[i].title);
-                    //i += i;<img src="http://covers.openlibrary.org/b/isbn/9780385533225-S.jpg" />   
-                    posts += "<br/><br/>"+data.docs[i].title+"<br/>";                 
-                    posts += data.docs[i].isbn[0]+"<br/>";
-                    if($("img").length){
-                        posts += "<img src='http://covers.openlibrary.org/b/isbn/"+data.docs[i].isbn[0]+"-S.jpg'/>";
-                    } else {
-                        posts += "<img src='http://i.imgur.com/J5LVHEL.jpg'/>";
-                    }     
-                }
 
+                //sends back first element of array
+                Object.defineProperty(Array.prototype, 'first', {
+                    value() {
+                      return this.find(e => true);     // or this.find(Boolean)
+                    }
+                  });
+
+                  //loop to return title, authors, and first isbn number
+                var d = data.docs;
+                    d.forEach((d)=>{
+                        posts += d.title+"<br/>";
+                        for(j in d.author_name){
+                            posts += d.author_name[j]+"<br/>";
+                            posts += d.isbn.first()+"<br/><br/>";  
+                        }
+                        
+                    });
+
+                    //returns to index page
                 $("#results").html(posts);
             }
         });
