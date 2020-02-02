@@ -8,6 +8,7 @@ html,body {
   
   background-size:cover;
   background-image:url('/images/books.jpg');
+  opacity: 0.9;
 }
 
 .navbar{
