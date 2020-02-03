@@ -2,42 +2,35 @@ html,body {
   height:100%;
 }
 
-.first {
-  height:100vh;
-  min-height:400px;
-  
-  background-size:cover;
-  background-image:url('/images/books.jpg');
-  opacity: 0.9;
-}
-
 .navbar{
-  background: rgba(196, 132, 79, 0.247) ;
-
+  background: rgba(255, 255, 255, 0.247) ;
 }
 
-.affix {
-  background-color: #eee;
- 
-  -webkit-transition:padding 0.2s ease-out;
-  -moz-transition:padding 0.2s ease-out;  
-  -o-transition:padding 0.2s ease-out;         
-  transition:padding 0.2s ease-out;
+#logo_con {
+
+  margin-left: -1vh;
+  width: 1%;
+}
+#logo {
+  padding-top: 0.5vh;
+  width: 18vh;
+  height: auto;
 }
 
-@media (min-width:768px) {
-    .affix-top {
-      /* navbar style at top */
-     background-color:transparent;
-     border-color:transparent; 
-     
-     
-     padding: 15px;
-     -webkit-transition:all 0.5s ease;
-     -moz-transition:all 0.5s ease; 
-     -o-transition:all 0.5s ease;         
-     transition:all 0.5s ease;  
-    }
+
+h1 {
+  font-family: 'Shadows Into Light', cursive;
+}
+
+#Name {
+  font-family: 'Shadows Into Light', cursive;
+  color: rgb(255, 255, 255);
+  font-size: 450%;
+  padding-left: 45vh;
+}
+#sign_in {
+
+  padding-right: 10vh;
 }
 
 nav .navbar-nav .nav-link,
