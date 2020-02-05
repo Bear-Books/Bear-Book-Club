@@ -18,9 +18,13 @@ html,body {
 }
 
 
-#Name {
-  padding-left: 50vh;
+#Name{
   font-family: 'Shadows Into Light', cursive;
-  color: white;
-  font-size: 400%;
+}
+
+#shelf {
+
+  width: 85%;
+  height: auto;
+  
 }
