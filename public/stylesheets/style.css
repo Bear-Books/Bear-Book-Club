@@ -18,6 +18,9 @@ html,body {
 }
 
 
-h1 {
+#Name {
+  padding-left: 50vh;
   font-family: 'Shadows Into Light', cursive;
+  color: white;
+  font-size: 400%;
 }
