@@ -26,4 +26,9 @@ router.get('/User', function(req, res, next) {
   res.render('User', { title: 'Express' });
 });
 
+/* GET AllUsers page */
+router.get('/AllUsers', function(req, res, next) {
+  res.render('AllUsers', { title: 'Express' });
+});
+
 module.exports = router;

@@ -5,7 +5,7 @@ $(document).ready(
         //takes the search bar value and puts it through
         //open librarys search api. returns title, author and isbn
         //of the books
-    $("#search_bar").click(function(){
+    $("#search_button").click(function(){
         $("#results").text("One Moment...");
         $.ajax({
             type: 'GET',
@@ -25,13 +25,27 @@ $(document).ready(
 
                   //loop to return title, authors, and first isbn number
                 var d = data.docs;
-                    d.forEach((d)=>{
-                        posts += d.title+"<br/>";
-                        for(j in d.author_name){
-                            posts += d.author_name[j]+"<br/>";
-                            posts += d.isbn.first()+"<br/><br/>";  
+                
+                    d.forEach((d)=>{ 
+                    	if(d.title)
+                    		posts += d.title+"<br/>";
+
+                    	
+                                                
+                        if(d.author_name){
+
+                            for(j in d.author_name){
+                                posts += d.author_name[j]+"<br/>";
+                            }
                         }
+                        if(d.isbn)
+                            for(j in d.isbn){
+                                posts += d.isbn[j] + "<br>";
+                            }
+                        posts += "<br><br>";
+                        //posts += d.isbn.first() +"<br/>";
                         
+
                     });
 
                     //returns to index page
