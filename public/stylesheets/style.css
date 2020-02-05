@@ -21,25 +21,3 @@ html,body {
 h1 {
   font-family: 'Shadows Into Light', cursive;
 }
-
-#Name {
-  font-family: 'Shadows Into Light', cursive;
-  color: rgb(255, 255, 255);
-  font-size: 450%;
-  padding-left: 45vh;
-}
-#sign_in {
-
-  padding-right: 10vh;
-}
-
-nav .navbar-nav .nav-link,
-nav .navbar-brand {
-   color: #000;
-   
-}
-
-section {
-  height:calc(90% - 50px);
-  height: 90vh;
-}
