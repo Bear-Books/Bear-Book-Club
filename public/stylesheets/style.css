@@ -20,11 +20,27 @@ html,body {
 
 #Name{
   font-family: 'Shadows Into Light', cursive;
+  color: white;
+  font-size: 400%;
+  padding-left: 50vh;
 }
 
-#shelf {
-
-  width: 85%;
+#shelf1 {
+  padding-left: 8vh;
+  padding-top: 15vh;
+  width: 95%;
   height: auto;
-  
 }
+#shelf2 {
+  padding-left: 8vh;
+  padding-top: 15vh;
+  width: 95%;
+  height: auto;
+}
+#shelf3 {
+  padding-left: 8vh;
+  padding-top: 15vh;
+  width: 95%;
+  height: auto;
+}
+
