@@ -17,6 +17,10 @@ html,body {
   height: auto;
 }
 
+#sign_in{
+  left: -5vh; 
+}
+
 
 #Name{
   font-family: 'Shadows Into Light', cursive;
