@@ -1,11 +1,11 @@
 $(document).ready(function() {
            
-    $("#search_button").click(function(event){
+    $("#title_search_button").click(function(event){
         var searchBox = "";
         searchBox = $("#search_box").val();
        $.getJSON('http://openlibrary.org/search.json?title='+searchBox, function(data) {
         var posts = "";
-        $("#counter").text(data.docs.length);
+        $("#counter").text(data.docs.length +" results returned:");
         var d = data.docs;
         d.forEach((d)=>{ 
             if(d.title)
