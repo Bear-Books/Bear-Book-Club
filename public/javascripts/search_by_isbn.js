@@ -10,16 +10,18 @@ $(document).ready(function() {
         d.forEach((d)=>{ 
             for(j in d.isbn){
                 if(d.isbn[j] == searchBox){
-                    posts += d.author_name[j]+"<br/>";
+                    for(i in d.author_name)
+                        posts += d.author_name[i]+"<br/>";
                     posts += d.title+"<br/>";
                     posts += d.isbn[j] + "<br>";
                 }
             }
 
-            posts += "<br><br>end of search results";
+            posts += "<br><br>";
             //posts += d.isbn.first() +"<br/>";
             
         });
+        posts += "end of search results";
         $("#results").html(posts);
        });
     });
