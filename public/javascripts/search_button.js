@@ -7,10 +7,12 @@ $(document).ready(
         //of the books
     $("#search_button").click(function(){
         $("#results").text("One Moment...");
+        var searchBox = "";
+        searchBox = $("#search_box").val();
         $.ajax({
             type: 'GET',
             dataType: "json",
-            url: 'http://openlibrary.org/search.json?title='+$("#search_box").val(),
+            url: 'http://openlibrary.org/search.json?title='+searchBox,
             success: function (data) {
 
                 var posts = "";
