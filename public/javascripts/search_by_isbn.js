@@ -10,10 +10,11 @@ $(document).ready(function() {
         d.forEach((d)=>{ 
             for(j in d.isbn){
                 if(d.isbn[j] == searchBox){
+                    posts +="<a href = '/Book?isbn="+d.isbn[0]+"'>";
                     for(i in d.author_name)
                         posts += d.author_name[i]+"<br/>";
                     posts += d.title+"<br/>";
-                    posts += d.isbn[j] + "<br>";
+                    posts += d.isbn[j] + "</a>  <br>";
                 }
             }
 

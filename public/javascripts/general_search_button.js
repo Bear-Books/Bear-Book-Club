@@ -5,14 +5,14 @@ $(document).ready(
         //takes the search bar value and puts it through
         //open librarys search api. returns title, author and isbn
         //of the books
-    $("#search_button").click(function(){
+    $("#general_search_button").click(function(){
         $("#results").text("One Moment...");
         var searchBox = "";
         searchBox = $("#search_box").val();
         $.ajax({
             type: 'GET',
             dataType: "json",
-            url: 'http://openlibrary.org/search.json?title='+searchBox,
+            url: 'http://openlibrary.org/search.json?q='+searchBox,
             success: function (data) {
 
                 var posts = "";
@@ -29,6 +29,8 @@ $(document).ready(
                 var d = data.docs;
                 
                     d.forEach((d)=>{ 
+                        if(d.isbn){
+                            posts +="<a href = '/Book?isbn="+d.isbn[0]+"'>";
                     	if(d.title)
                     		posts += d.title+"<br/>";
 
@@ -41,14 +43,14 @@ $(document).ready(
                             }
                         }
                         if(d.isbn)
-                            for(j in d.isbn){
-                                posts += d.isbn[j] + "<br>";
-                            }
+                            posts += d.isbn[0] + "</a><br>";
+                            
                         posts += "<br><br>";
                         //posts += d.isbn.first() +"<br/>";
                         
 
-                    });
+                    }}
+                    );
 
                     //returns to index page
                 $("#results").html(posts);
