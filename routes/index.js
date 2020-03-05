@@ -8,13 +8,16 @@ router.get('/', function(req, res, next) {
 
 /* GET Book page */
 router.get('/Book', function(req, res, next) {
-  res.render('Book', { title: 'Express' });
+  var isbn = req.query.isbn;
+  res.render('Book', { book_isbn: isbn });
 });
 
 /* GET About Us page */
 router.get('/AboutUs', function(req, res, next) {
   res.render('AboutUs', { title: 'Express' });
 });
+
+
 
 /* GET Login page */
 router.get('/Login', function(req, res, next) {

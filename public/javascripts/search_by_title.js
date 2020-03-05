@@ -8,6 +8,9 @@ $(document).ready(function() {
         $("#counter").text(data.docs.length +" results returned:");
         var d = data.docs;
         d.forEach((d)=>{ 
+            if(d.isbn){
+                posts +="<a href = '/Book?isbn="+d.isbn[0]+"'>";
+            }
             if(d.title)
                 posts += d.title+"<br/>";
 
@@ -20,9 +23,9 @@ $(document).ready(function() {
                 }
             }
             if(d.isbn)
-                for(j in d.isbn){
-                    posts += d.isbn[j] + "<br>";
-                }
+                //for(j in d.isbn){
+                    posts += d.isbn[0] + "</a><br>";
+                //}
             posts += "<br><br>";
             //posts += d.isbn.first() +"<br/>";
             
