@@ -17,6 +17,10 @@ router.get('/AboutUs', function(req, res, next) {
   res.render('AboutUs', { title: 'Express' });
 });
 
+router.get('/search', function(req, res, next) {
+  res.render('search', { title: 'Express' });
+});
+
 
 
 /* GET Login page */

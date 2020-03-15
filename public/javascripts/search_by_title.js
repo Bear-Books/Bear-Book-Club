@@ -1,9 +1,10 @@
 $(document).ready(function() {
            
     $("#title_search_button").click(function(event){
+        //window.open('/search','_self');
         var searchBox = "";
         searchBox = $("#search_box").val();
-       $.getJSON('http://openlibrary.org/search.json?title='+searchBox, function(data) {
+        $.getJSON('http://openlibrary.org/search.json?title='+searchBox, function(data) {
         var posts = "";
         $("#counter").text(data.docs.length +" results returned:");
         var d = data.docs;

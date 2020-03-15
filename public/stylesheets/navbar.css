@@ -1,0 +1,74 @@
+.navbar{
+    background-color: rgba(18, 170, 197, 0.247) ;
+}
+.navbar-brand {
+    width: 4.5%;
+}
+
+#logo {
+    width: 105%;
+    height: auto;
+}
+
+
+#sign_in-con {
+    width: 32vh;
+    padding-right: 0.5%;
+
+}
+
+#Name {
+    font-family: 'Bad Script', cursive;
+    color: white;
+    font-size: 260%;
+    white-space: nowrap;
+    vertical-align: middle;
+    padding-top: 6%;
+}
+
+#text-con {
+
+    text-align: center;
+    padding-left: 13%;
+}
+
+#choose {
+    width: 30%;
+    border-radius: 0;
+}
+
+.search_input{
+    color: white;
+    border: 0;
+    outline: 0;
+    background: none;
+    width: 0;
+    caret-color:transparent;
+    line-height: 40px;
+    transition: width 0.4s linear;
+}
+
+.searchbar:hover > .search_input{
+    padding: 0 10px;
+    width: 450px;
+    caret-color:red;
+    transition: width 0.4s linear;
+}
+
+.searchbar:hover > .search_icon{
+    background: white;
+    color: #e74c3c;
+}
+
+.search_icon{
+    height: 40px;
+    width: 40px;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color:white;
+    text-decoration:none;
+}
+  
