@@ -9,9 +9,7 @@ password: String,
 access_token: String,
 date_created : {type: Date, default: new Date()},
 books_to_read: [],
-books_have_read: [],
-up_votes: {type: Number, default : 0},
-down_votes: {type: Number, default : 0}
+books_have_read: []
 });
 
 

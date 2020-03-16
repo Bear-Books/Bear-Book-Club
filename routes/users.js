@@ -11,6 +11,9 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+router.get('/User', function(req, res, next) {
+    res.render('User', { title: 'Express' });
+  });
 
 router.post('/register', function(req, res, next){
   var username = req.body.user_name;

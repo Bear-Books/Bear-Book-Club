@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var User = require('../models/Users');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -21,6 +22,15 @@ router.get('/search', function(req, res, next) {
   res.render('search', { title: 'Express' });
 });
 
+router.get('/getUsers', function(req, res, next)
+{
+    User.find({}, function (err, users) {
+        if (err)
+            res.send(err);
+
+        res.json(users);
+    });
+});
 
 
 /* GET Login page */
@@ -29,8 +39,10 @@ router.get('/Login', function(req, res, next) {
 });
 
 /* GET User page */
+
 router.get('/User', function(req, res, next) {
-  res.render('User', { title: 'Express' });
+  var user_name = req.query.username;
+  res.render('User', { username: user_name });
 });
 
 /* GET AllUsers page */
