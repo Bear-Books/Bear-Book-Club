@@ -34,9 +34,13 @@
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 
 <meta name="google-signin-client_id" content="422623732850-oao5hsdt35e4eifi6k97kbbugf9i6g33.apps.googleusercontent.com">
+<meta name="google-signin-cookiepolicy" content="single_host_origin" />
+<meta name="google-signin-requestvisibleactions" content="https://schema.org/AddAction" />
+<meta name="google-signin-scope" content="https://www.googleapis.com/auth/plus.login" />
 <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
 <a href="#" onclick="signOut();">Sign out</a>
+<div class="" onclick="returnInfoToScreen();">heyo</div>
 <script>
 
     function onSignIn(googleUser) {
@@ -45,6 +49,22 @@
     console.log('Name: ' + profile.getName());
     console.log('Image URL: ' + profile.getImageUrl());
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+  
+  var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+
+  }
+
+  function returnInfoToScreen(){
+    
+    const googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+  const profile = googleUser.getBasicProfile();
+  if(profile === undefined){
+    console.log("user not signed in, no info to return");
+  }else{
+    console.log("hey hey hey "+profile.getId());
+  }
+    
   }
   
   function signOut() {
