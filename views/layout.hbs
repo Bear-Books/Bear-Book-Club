@@ -42,11 +42,13 @@
 
               <div id="sign_in-con">
                 <ul id="sign_in" class="nav ml-auto navbar-nav">
-                  <meta name="google-signin-client_id" content="422623732850-oao5hsdt35e4eifi6k97kbbugf9i6g33.apps.googleusercontent.com">
+                  <!--<meta name="google-signin-client_id" content="422623732850-oao5hsdt35e4eifi6k97kbbugf9i6g33.apps.googleusercontent.com">-->
+                  <meta name="google-signin-client_id" content="869028558089-ajcsnb323shupvft242d2eako6eog1gq.apps.googleusercontent.com">
+
                   <meta name="google-signin-cookiepolicy" content="single_host_origin" />
                   <meta name="google-signin-requestvisibleactions" content="https://schema.org/AddAction" />
                   <meta name="google-signin-scope" content="https://www.googleapis.com/auth/plus.login" />
-                  <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                  <div class="g-signin2" id="signInButton" data-onsuccess="onSignIn"></div>
                 </ul>
                 <div id="checkLogin">
                 <a href="#" onclick="signOut();">Sign out</a>
