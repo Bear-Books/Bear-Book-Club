@@ -49,7 +49,7 @@
 
 .searchbar:hover > .search_input{
     padding: 0 10px;
-    width: 450px;
+    width: 325px;
     caret-color:red;
     transition: width 0.4s linear;
 }
