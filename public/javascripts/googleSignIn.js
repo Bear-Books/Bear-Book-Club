@@ -4,16 +4,24 @@
     console.log('Name: ' + profile.getName());
     console.log('Image URL: ' + profile.getImageUrl());
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+    profileImg = profile.getImageUrl();
+
+    tag = '<img src="'+ profileImg + '"></img>'
+    console.log(tag);
   
   var id_token = googleUser.getAuthResponse().id_token;
         console.log("ID Token: " + id_token);
 
         if(profile === undefined){
           console.log("user not signed in, no info to return");
+        
 
         }else{
-          console.log("hey hey hey "+profile.getId());
+          console.log("hey hey hey "+profile.getId());``
           $("#checkLogin").show();
+          $("#signInButton").html(tag);
+          //$("#signInButton").append();
 
         }
 
@@ -32,6 +40,7 @@
     auth2.signOut().then(function () {
       console.log('User signed out.');
       $("#checkLogin").hide();
+      $("#signInButton").show();
 
     });
   }
