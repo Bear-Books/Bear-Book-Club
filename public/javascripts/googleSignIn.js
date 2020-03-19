@@ -20,7 +20,9 @@
         }else{
           console.log("hey hey hey "+profile.getId());``
           $("#checkLogin").show();
-          $("#signInButton").html(tag);
+          $("#profilePic").show();
+          $("#profilePic").html(tag);
+          $("#signInButton").hide();
           //$("#signInButton").append();
 
         }
@@ -40,6 +42,7 @@
     auth2.signOut().then(function () {
       console.log('User signed out.');
       $("#checkLogin").hide();
+      $("#profilePic").hide();
       $("#signInButton").show();
 
     });
