@@ -7,7 +7,7 @@
 
     profileImg = profile.getImageUrl();
 
-    tag = '<img src="'+ profileImg + '"></img>'
+    tag = '<img src="'+ profileImg + '"style= "border-radius: 50%; width:60px"></img>'
     console.log(tag);
   
   var id_token = googleUser.getAuthResponse().id_token;
