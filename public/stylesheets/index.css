@@ -1,23 +1,58 @@
 html,body {
     height:100%;
 }
+
+.container {
+    position: relative;
+    text-align: center;
+    color: white;
+  }
+
+  /* Centered text */
+.centered {
+    font-family: 'Bad Script';
+    position: absolute;
+    font-size: 150%;
+    font-weight: bold;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+  }
+
+  .heading1{
+    font-size: 260%;
+    font-weight: bolder;
+  }
+
+  .githubImg{
+    width: 20px;
+  }
+
+
 #shelf1 {
     padding-left: 8vh;
     padding-top: 15vh;
     width: 95%;
     height: auto;
+    opacity: 0.5;
 }
 #shelf2 {
     padding-left: 8vh;
     padding-top: 15vh;
     width: 95%;
     height: auto;
+    opacity: 0.5;
+
 }
 #shelf3 {
     padding-left: 8vh;
     padding-top: 15vh;
     width: 95%;
     height: auto;
-}
+    opacity: 0.5;
+  }
+
+
   
   
