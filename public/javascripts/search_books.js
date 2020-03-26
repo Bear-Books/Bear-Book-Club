@@ -3,6 +3,7 @@ $(document).ready(
 
         var searchQ = window.location.href.slice(window.location.href.indexOf('?') + 1);
         var limit = 2;
+        var basic = '<div class="row"><div class="col-md-7"><a href="#"><img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/200x300" alt=""></a></div><div class="col-md-5"><h3 id="author_name">David Noone</h3><p ></p><a class="btn btn-primary" href="#">Add Book To Reading List</a></div></div><hr>';
 
         $.getJSON('http://openlibrary.org/search.json?q='+searchQ, function(data) {
 
@@ -19,7 +20,7 @@ $(document).ready(
 
             for (var i=0; i<limit; i++) {
                 
-                $( "#full_search" ).append('<div class="row"><div class="col-md-7"><a href="#"><img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/200x300" alt=""></a></div><div class="col-md-5"><h3 id="author_name">David Noone</h3><p ></p><a class="btn btn-primary" href="#">Add Book To Reading List</a></div></div><hr>');
+                $( "#full_search" ).append(basic);
             }
             //d.forEach((d)=>{ 
                 

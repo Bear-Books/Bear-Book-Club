@@ -13,3 +13,12 @@ hgroup h2.lead { font: normal normal 1.125em "Roboto",Arial,Verdana,sans-serif; 
 #author_name {
     color: black;
 }
+#sort_by {
+    color: black;
+}
+#buttons {
+    padding-bottom: 1vh;
+}
+#buttons button {
+    width: 28vh;
+}

@@ -12,7 +12,16 @@
 
     <hgroup class="mb20">
 		<h1 id="search_res">Search Results</h1>
-		<h2 class="lead"><strong class="text-danger" id="num_results"></strong> results were found for the search for <strong class="text-danger" id = "searchQ"></strong></h2>								
+		<h2 class="lead"><strong class="text-danger" id="num_results"></strong> results were found for the search for <strong class="text-danger" id = "searchQ"></strong></h2>
+    
+    <p id="sort_by">Sort by</p>
+     <div class="btn-group" role="group" id="buttons">
+      <button id="rel" type="button" class="btn btn-secondary">Relevance</button>
+      <button id="numEd" type="button" class="btn btn-secondary">Number Of Editions</button>
+      <button id="earlPub" type="button" class="btn btn-secondary">Earliest Published</button>
+      <button id="recPub" type="button" class="btn btn-secondary">Recently Published</button>
+    </div>
+
 	</hgroup>
 
 
@@ -23,7 +32,7 @@
           </a>
         </div>
         <div class="col-md-5">
-          <h3 id="author_name">David Noone</h3>
+          <h3 id="author_name"></h3>
           <p ></p>
           <a class="btn btn-primary" href="#">Add Book To Reading List</a>
         </div>
