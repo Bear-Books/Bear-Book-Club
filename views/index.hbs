@@ -4,5 +4,19 @@
 <img src="/images/shelf2.png" id="shelf2" class="img-rounded" alt="Cinque Terre">
 
 <img src="/images/shelf3.png" id="shelf3" class="img-rounded" alt="Cinque Terre">
-
+<button onclick = "returnInfoToScreen();">button</button>
+<script>
+      function returnInfoToScreen(){
+    
+    const googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+  const profile = googleUser.getBasicProfile();
+  if(profile === undefined){
+    console.log("user not signed in, no info to return");
+  }else{
+    console.log("hey hey hey "+profile.getId());
+    console.log( profile.getName());
+  }
+    
+  }
+</script>
 <script src="/javascripts/general_search_button.js"></script>

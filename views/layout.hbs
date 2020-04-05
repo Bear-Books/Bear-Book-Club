@@ -8,6 +8,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="/javascripts/register.js"></script>
 
+        <!-- this is required to get the google sign in info -->
+    <div class="g-signin2" data-onsuccess="onSignIn" style = "display: none;"></div>
+    <meta name="google-signin-client_id" content="422623732850-oao5hsdt35e4eifi6k97kbbugf9i6g33.apps.googleusercontent.com">
+    
+
     <!-- added scripts, messed up the nav bar -->
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
@@ -86,5 +91,27 @@
     
     
 
+<!--
+       <script src="/javascripts/user_info.js"></script>
+
+       -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <script>
+
+$(document).ready(function(){
+
+
+  function onLoad() {
+      gapi.load('auth2', function() {
+        gapi.auth2.init();
+      });
+    }
+
+})
+     
+    </script>
+
   </body>
+  
 </html>
