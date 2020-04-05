@@ -7,9 +7,24 @@ hgroup { padding-left: 15px; border-bottom: 1px solid #ccc; }
 hgroup h1 { font: 500 normal 1.625em "Roboto",Arial,Verdana,sans-serif; color: #2a3644; margin-top: 0; line-height: 1.15; }
 hgroup h2.lead { font: normal normal 1.125em "Roboto",Arial,Verdana,sans-serif; color: #2a3644; margin: 0; padding-bottom: 10px; }
 
+p {
+    color: black;
+}
 #full_search {
     opacity: 0;
 }
-#author_name {
+#book_author{
     color: black;
+}
+#book_title {
+    color: black;
+}
+#sort_by {
+    color: black;
+}
+#buttons {
+    padding-bottom: 1vh;
+}
+#buttons button {
+    width: 28vh;
 }
