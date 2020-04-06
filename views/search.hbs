@@ -1,5 +1,54 @@
-<p id = "counter">counter</p>
-<p id = "results">results</p>
-<p id = "test">here</p>
+<link rel='stylesheet' href='/stylesheets/searchpage.css'/>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+<div class="container" id="readingBearCon">
+    <hgroup class="mb20">
+		<h1 id="search_res">Generating Results</h1>
+    </hgroup>
+    <img src='/images/readingBear.gif' id="readingBear">
+</div>
+<div class="container" id="full_search">
+
+  <hgroup class="mb20">
+		<h1 id="search_res">Search Results</h1>
+		<h2 class="lead">Top <strong class="text-danger" id="num_results"></strong> results found for the search for <strong class="text-danger" id = "searchQ"></strong></h2>
+    
+    <p id="sort_by">Sort by</p>
+     <div class="btn-group" role="group" id="buttons">
+      <button id="rel" type="button" class="btn btn-secondary">Relevance</button>
+      <button id="numEd" type="button" class="btn btn-secondary">Number Of Editions</button>
+      <button id="earlPub" type="button" class="btn btn-secondary">Earliest Published</button>
+      <button id="recPub" type="button" class="btn btn-secondary">Recently Published</button>
+    </div>
+
+	</hgroup>
+
+ <!--
+    <div class="row">
+        <div class="col">
+          
+          <a href="" id="book_title_link">
+            <img id="book_cover_link" class="img-fluid rounded mb-3 mb-md-0" src="http://covers.openlibrary.org/b/id/8267078-M.jpg" alt="">
+          </a>
+        </div>
+        <div class="col-3">
+          <a href="" id="book_title_link"><h3 id="book_title"></h3></a>
+        <p id="by_word">by </p>
+        <h6 id="book_author"></h6>
+          
+        </div>
+        <div class="col">
+          
+          <p ></p>
+          <a class="btn btn-warning" id="add_book" href="#">Add Book To Reading List</a>
+        </div>
+    </div>
+       /.row http://placehold.it/100x200
+    <hr>-->
+    
+
+    
+</div>
+
 <script src="/javascripts/general_search_button.js"></script>
 <script src="/javascripts/search_books.js"></script>

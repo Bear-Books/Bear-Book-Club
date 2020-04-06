@@ -4,11 +4,13 @@
     <title>Bear Book Club</title>
     <link rel='stylesheet' href='/stylesheets/index.css'/>
     <link rel='stylesheet' href='/stylesheets/navbar.css'/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'/>  
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="/javascripts/googleSignIn.js"></script>
+    <script src="/javascripts/navbar.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Bad+Script&display=swap" rel="stylesheet">
 
@@ -49,7 +51,7 @@
                   <meta name="google-signin-requestvisibleactions" content="https://schema.org/AddAction" />
                   <meta name="google-signin-scope" content="https://www.googleapis.com/auth/plus.login" />
                   <div class="g-signin2" id="signInButton" data-onsuccess="onSignIn"></div>
-                  <div id="profilePic"></div>
+                  <div id="profilePic" onclick="openUserPage();"></div>
                 </ul>
                 <div >
                 <a href="#" onclick="signOut();" id="signOutButton"></a>
