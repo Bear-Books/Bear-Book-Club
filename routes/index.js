@@ -1,7 +1,53 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/Users');
+
+var UserDatabase = require('../models/UserDatabase');
+
+
+router.get('/getUserDatabase', function(req, res, next)
+{
+    UserDatabase.find({}, function (err, users) {
+        if (err)
+            res.send(err);
+
+        res.json(users);
+    });
+});
+
+router.get('/getOneUser', function(req, res, next){
+  var name = "evan kelly";
+  UserDatabase.find({user_name:name}, function(err, docs){
+    if(docs.length){
+      console.log(docs.length);
+      console.log("help");
+
+    }else{
+      console.log('insert');
+    }
+  });
+});
+
+/**
+ * Adds comments to our database
+ */
+router.post('/addUserDatabase', function(req, res, next) {
+
+  // Extract the request body which contains the comments
+  ud = new UserDatabase(req.body);
+  ud.save(function (err, savedUser) {
+
+      if (err)
+          throw err;
+
+      res.json({
+          "user_name": savedUser._user_name
+      });
+  });
+});
+
 var http = require('http');
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -75,7 +121,15 @@ router.get('/search', function(req, res, next) {
   
 });
 
+
+//get chat page
+router.get('/chat', function(req, res, next){
+  res.render('chat', {title: 'express'});
+});
+
+
 /* GET Users page */
+
 router.get('/getUsers', function(req, res, next)
 {
     User.find({}, function (err, users) {
