@@ -1,8 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../models/Users');
+var User = require('../models/UserDatabase');
+
 var jwt = require('jsonwebtoken');
 var mongoose = require('mongoose');
+
+
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
