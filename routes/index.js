@@ -1,6 +1,47 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/Users');
+var UserDatabase = require('../models/UserDatabase');
+
+
+router.get('/getUserDatabase', function(req, res, next)
+{
+    UserDatabase.find({}, function (err, users) {
+        if (err)
+            res.send(err);
+
+        res.json(users);
+    });
+});
+
+router.get('/getOneUser', function(req, res, next){
+  UserDatabase.find({user_name:user_name}, function(err, docs){
+    if(docs.length){
+      console.log(docs.length);
+
+    }else{
+      console.log('insert');
+    }
+  });
+});
+
+/**
+ * Adds comments to our database
+ */
+router.post('/addUserDatabase', function(req, res, next) {
+
+  // Extract the request body which contains the comments
+  ud = new UserDatabase(req.body);
+  ud.save(function (err, savedUser) {
+
+      if (err)
+          throw err;
+
+      res.json({
+          "user_name": savedUser._user_name
+      });
+  });
+});
 
 var UserDatabase = require('../models/UserDatabase');
 
