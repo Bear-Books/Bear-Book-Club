@@ -7,6 +7,15 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'/>  
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/javascripts/register.js"></script>
+
+        <!-- this is required to get the google sign in info -->
+    <div class="g-signin2" data-onsuccess="onSignIn" style = "display: none;"></div>
+    <meta name="google-signin-client_id" content="422623732850-oao5hsdt35e4eifi6k97kbbugf9i6g33.apps.googleusercontent.com">
+    
+
+    <!-- added scripts, messed up the nav bar -->
+<!-- added scripts, messed up the nav bar -->
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="/javascripts/googleSignIn.js"></script>
@@ -95,6 +104,26 @@
     
     
 
-  </body>
+<!--
+       <script src="/javascripts/user_info.js"></script>
 
+       -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <script>
+
+      $(document).ready(function(){
+
+
+        function onLoad() {
+            gapi.load('auth2', function() {
+              gapi.auth2.init();
+            });
+          }
+
+      })
+          
+    </script>
+
+  </body>
 </html>

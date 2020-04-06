@@ -1,0 +1,96 @@
+<body onclick = "returnGoogleSignInInfo()">
+    
+    <p id = "the_user">{{email}}</p>
+    <p id = "user_page">user page</p>
+    <p id = "test">testing user page</p>
+
+    <!-- this is required to get the google sign in info -->
+    <div class="g-signin2" data-onsuccess="onSignIn" style = "display: none;"></div>
+    <meta name="google-signin-client_id" content="422623732850-oao5hsdt35e4eifi6k97kbbugf9i6g33.apps.googleusercontent.com">
+    
+    <script src="/javascripts/user_info.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <script>
+
+//stack overflow said use this to 
+//fix google sign in loading info problems
+  function onLoad() {
+      gapi.load('auth2', function() {
+        gapi.auth2.init();
+      });
+    }
+      
+
+function returnGoogleSignInInfo(){
+        //if no user matches the handlebars string, check for google sign in
+        if(($("#user_page").text() === "no user matches that input")){
+            const googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+            const profile = googleUser.getBasicProfile();
+            const email = profile.getEmail();
+            if(profile === undefined){
+              console.log("no users on the user page");
+              return;
+            }
+            //console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            //console.log('Name: ' + profile.getName());
+            //console.log('Image URL: ' + profile.getImageUrl());
+            //console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+            //var id_token = googleUser.getAuthResponse().id_token;
+            //console.log("ID Token: " + id_token);
+            
+            var posts = "";
+            
+            posts += '<div class="container">'+
+    '<div class="row">'+
+        //'<div class="col-xs-12 col-sm-6 col-md-6">'+
+            '<div class="well well-sm">'+
+                '<div class="row">'+
+                    '<div class="col-sm-6 col-md-4">'+
+                        '<img src="'+ profile.getImageUrl() +'" alt="" class="img-rounded img-responsive" />'+
+                    '</div>'+
+                    '<div class="col-sm-6 col-md-8">'+
+                        '<h4>'+
+                            ''+profile.getName()+'</h4>'+
+                        '<small><cite title="San Francisco, USA">No Location <i class="glyphicon glyphicon-map-marker">'+
+                        '</i></cite></small>'+
+                        '<p>'+
+                            '<i class="glyphicon glyphicon-envelope"></i> '+profile.getEmail()+''+
+                            '<br />'+
+                            '<i class="glyphicon glyphicon-globe"></i><a href=""> no website</a>'+
+                            '<br />'+
+                            '<i class="glyphicon glyphicon-gift"></i>no birthday</p>'+
+                        '<!-- Split button -->'+
+                        '<div class="btn-group">'+
+                            '<button type="button" class="btn btn-primary">'+
+                                'Social</button>'+
+                            '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">'+
+                                '<span class="caret"></span><span class="sr-only">Options</span>'+
+                            '</button>'+
+                            '<ul class="dropdown-menu" role="menu">'+
+                                '<li><a href="#">Books to Read</a></li>'+
+                                '<li><a href="https://plus.google.com/+Jquery2dotnet/posts">Books have Read</a></li>'+
+                                '<li><a href="https://www.facebook.com/jquery2dotnet">Message</a></li>'+
+                                '<li class="divider"></li>'+
+                                '<li><a href="#">change info (if possible)</a></li>'+
+                            '</ul>'+
+                        '</div>'+
+                    '</div>'+
+                '</div>'+
+            '</div>'+
+        //'</div>'+
+    '</div>'
+'</div>';
+            $("#test").html(posts);
+            //console.log(profile);
+            
+        }else{
+            console.log("did nothing, online user already signed in");
+        }
+      }
+
+      
+    </script>
+    <div id="okay" onclick = "returnGoogleSignInInfo();">loader</div>
+    <div class="" onclick="returnGoogleSignInInfo();">heyo</div>
+</body>

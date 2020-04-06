@@ -1,0 +1,96 @@
+
+<button onclick = "returnInfoToScreen();">button</button>
+<div id = "users">empty</div>
+<button id = "theButton">the button</button>
+
+<script>
+
+function returnInfoToScreen(){
+    
+    const googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+  const profile = googleUser.getBasicProfile();
+  if(profile === undefined){
+    console.log("user not signed in, no info to return");
+  }else{
+    console.log("hey hey hey "+profile.getId());
+    console.log( profile.getName());
+  } 
+  }
+
+$(document).ready(
+    function() {        
+        /**
+         * Event handler for when the user attempts to register
+         */
+
+         var $user = $('#users');
+
+        $.ajax({
+            type: 'GET',
+            url: '/getUserDatabase',
+            success: function(data){
+                console.log('success', data);
+                $user.append("<p> hey everybody </p>");
+                $.each(data, function(index, user){
+                    console.log(data);
+                    console.log(data[index].user_name);
+                    $user.append("<p>hey "+data[index].user_name+"</p>");
+                    //console.log($user);
+                });
+            },
+            error: function(){
+                console.log('error on chat page function');
+            }
+        });
+
+/*
+        $('#theButton').on('click', function(){
+
+            const googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+            const profile = googleUser.getBasicProfile();
+  if(profile === undefined){
+    console.log("user not signed in, no info to return");
+  }else{
+    console.log("hey hey hey "+profile.getId());
+    console.log( profile.getName());
+  }
+    
+  }
+  */
+  
+  $('#theButton').on('click', function(){
+        
+        const googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+        const profile = googleUser.getBasicProfile();
+        if(profile === undefined){
+            console.log("user not signed in, no info to return");
+        }else{
+
+          name = profile.getName();
+              
+            /*  $.ajax({
+                  url: '/addUserDatabase/',
+                  type: 'POST',
+                  dataType: 'json',
+                  data: {user_name: name},
+                  success: function(data){
+                      console.log("added the user "+data);
+                      console.log(data._user_name);
+                      console.log(data.user_name);
+                      console.log(name);
+                  },
+                  error: function(error){
+                      console.log("error saving order "+error);
+                  }
+          });*/
+        }            
+
+  });
+
+
+ });
+        
+
+
+      
+</script>
