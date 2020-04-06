@@ -10,6 +10,7 @@
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="/javascripts/googleSignIn.js"></script>
+    <script src="/javascripts/navbar.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Bad+Script&display=swap" rel="stylesheet">
 
@@ -50,7 +51,7 @@
                   <meta name="google-signin-requestvisibleactions" content="https://schema.org/AddAction" />
                   <meta name="google-signin-scope" content="https://www.googleapis.com/auth/plus.login" />
                   <div class="g-signin2" id="signInButton" data-onsuccess="onSignIn"></div>
-                  <div id="profilePic"></div>
+                  <div id="profilePic" onclick="openUserPage();"></div>
                 </ul>
                 <div >
                 <a href="#" onclick="signOut();" id="signOutButton"></a>

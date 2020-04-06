@@ -4,12 +4,12 @@ var bcrypt = require('bcrypt-nodejs');
 require('./Util');
 
 var UserSchema = new Schema({
-user_name: {type: String},
-password: String,
-access_token: String,
-date_created : {type: Date, default: new Date()},
-books_to_read: [],
-books_have_read: []
+    user_name: {type: String},
+    password: String,
+    access_token: String,
+    date_created : {type: Date, default: new Date()},
+    books_to_read: [],
+    books_have_read: []
 });
 
 

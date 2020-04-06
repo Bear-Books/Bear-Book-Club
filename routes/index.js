@@ -8,10 +8,16 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-/* GET Book page */
+/* GET Book page 
 router.get('/Book', function(req, res, next) {
   var isbn = req.query.isbn;
   res.render('Book', { book_isbn: isbn });
+}); */
+
+/* GET Book page */
+router.get('/Book', function(req, res, next) {
+  //var isbn = req.query.isbn;
+  res.render('Book', { title: 'Express'});
 });
 
 /* GET About Us page */
@@ -19,7 +25,9 @@ router.get('/AboutUs', function(req, res, next) {
   res.render('AboutUs', { title: 'Express' });
 });
 
+
 /* GET Search page and book sorter*/
+/* Defunct, now done in jQuery */
 router.get('/search', function(req, res, next) {
 
   var arraySort = require('array-sort');
