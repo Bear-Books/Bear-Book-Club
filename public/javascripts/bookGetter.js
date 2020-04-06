@@ -4,9 +4,6 @@ $(document).ready(function() {
     //directly take handlebars and input it as an argument
 
 
-    
-
-
     //console.log("started");
     //var isbn = $("#page1").text();
     //isbn = isbn.toString();

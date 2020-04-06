@@ -17,10 +17,10 @@ $(document).ready(
         var output4 = '" id="book_title_link"><h3 id="book_title">';
         var title = "some title";
 
-        var output5 = '</h3><p id="by_word">by </p><h6 id="book_author"></h6>';
+        var output5 = '</h3></a><p id="by_word">by </p><h6 id="book_author" style="color: black;">';
         var author = "";
         
-        var output6 = '</h6></div><div class="col"><p ></p><a class="btn btn-warning" id="add_book" href="#">Add Book To Reading List</a></div></div><hr>';
+        var output6 = '</h6></div><div class="col"><p ></p><div class="btn btn-warning" id="add_book">Add Book To Reading List</div></div></div><hr>';
         
         var authorLink = "";
         var titleLink = "";
@@ -72,6 +72,11 @@ $(document).ready(
                 $( "#full_search" ).append(output1+titleLink+output2+coverlink+output3+titleLink+output4+title+output5+author+output6);
                
             }
+
+            $("#add_book").click(function() {
+                alert( "Added to your reading list!" );
+                
+            });
             
         });
         
