@@ -45,10 +45,22 @@ router.post('/addUserDatabase', function(req, res, next) {
 
 var UserDatabase = require('../models/UserDatabase');
 
-
 router.get('/getUserDatabase', function(req, res, next)
 {
-    UserDatabase.find({}, function (err, users) {
+  
+  var name = req.query.user_name;
+
+    UserDatabase.find({user_name:name}, function (err, users) {
+      console.log("help");
+      if(users.length > 0){
+        console.log(users.length);
+        console.log("Already in database");
+      }
+      else{
+        console.log("Not in database");
+      }
+
+      
         if (err)
             res.send(err);
 
@@ -56,36 +68,57 @@ router.get('/getUserDatabase', function(req, res, next)
     });
 });
 
-router.get('/getOneUser', function(req, res, next){
-  var name = "evan kelly";
-  UserDatabase.find({user_name:name}, function(err, docs){
-    if(docs.length){
-      console.log(docs.length);
-      console.log("help");
 
-    }else{
-      console.log('insert');
-    }
-  });
-});
+  router.post('/addUserDatabase', function(req, res, next) {
+       console.log("got here")
+         // Extract the request body which contains the comments
+         ud = new UserDatabase(req.body);
+         ud.save(function (err, savedUser) {
+       
+             if (err)
+                 throw err;
+       
+             res.json({
+                 //"user_name": savedUser._user_name
+                 "user_name": savedUser.name
+             });
+         });
+       });
+
+
+// router.get('/getOneUser', function(req, res, next){
+// 
+//   UserDatabase.find({user_name:name}, function(err, docs){
+//     if(docs.length){
+//       console.log(docs.length);
+//       console.log("Already in database");
+//     }else{
+         
+//     }
+//   });
+// });
 
 /**
  * Adds comments to our database
- */
-router.post('/addUserDatabase', function(req, res, next) {
+ * **/
 
-  // Extract the request body which contains the comments
-  ud = new UserDatabase(req.body);
-  ud.save(function (err, savedUser) {
+  // router.post('/addUserDatabase', function(req, res, next) {
+  //    console.log("got here")
+  //      // Extract the request body which contains the comments
+  //      ud = new UserDatabase(req.body);
+  //      ud.save(function (err, savedUser) {
+     
+  //          if (err)
+  //              throw err;
+     
+  //          res.json({
+  //              //"user_name": savedUser._user_name
+  //              "user_name": savedUser.name
+  //          });
+  //      });
+  //    });
 
-      if (err)
-          throw err;
 
-      res.json({
-          "user_name": savedUser._user_name
-      });
-  });
-});
 
 var http = require('http');
 
@@ -122,6 +155,7 @@ router.get('/search', function(req, res, next) {
   var searchUrl = "http://openlibrary.org/search.json?q=" + searchString;
   var limit = 20;
   var top = [];
+  
   /*
   http.get(searchUrl, function(res) {
     var body = '';

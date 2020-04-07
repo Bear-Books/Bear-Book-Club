@@ -26,6 +26,64 @@
           $("#profilePic").html(tag);
           $("#signInButton").hide();
 
+          var posts = '<div id = "container">';
+            
+          posts += '<img src="'+ profileImg + '"style= "border-radius: 50%; width:120px"></img>';
+
+          posts += '<div id="profilePageName"> Name: ' + profile.getName() + '<br>'+
+                    'Email: ' + profile.getEmail()
+          
+          
+          
+          
+                    + '</div>'+
+                  '</div>';
+
+
+          $.ajax({
+            // Finding a user with the same name as profile signed in with
+            type: 'GET',
+            url: '/getUserDatabase?user_name='+ profile.getName(),
+            success: function(user){
+              // Upon success check how many users where in the database with that name
+
+              console.log('success', user);
+              // If its more than one we do not want to add the user
+                  if(user.length > 0){
+                    console.log("user in database");
+                    console.log(user.user_name);
+                  }
+                  else{
+                    //if it is less than 1 we want to add the user
+                    console.log("user not in database");
+
+                    // Adding the user
+                    $.ajax({
+                      url: '/addUserDatabase/',
+                      type: 'POST',
+                      dataType: 'json',
+                      data: {user_name: profile.getName()},
+                      success: function(data){
+                          console.log("added the user "+data);
+                          console.log(data.user_name);
+                          console.log(name);
+
+                      },
+                      error: function(error){
+                          console.log("error saving order "+error);
+                      }
+              });
+                  }
+                  $("#profilePagePic").html(posts);
+            },
+            error: function(){
+                console.log('error on chat page function');
+            }
+        });
+        
+
+
+
         }
 
   }
