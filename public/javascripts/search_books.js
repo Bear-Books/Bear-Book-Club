@@ -56,8 +56,7 @@ $(document).ready(
         }
         $.getJSON(openLibQ1+searchQ+openLibQ2, function(data) {
 
-            $("#searchQ").text(searchQ.replace("/+/g"," "));
-  
+            $("#searchQ").text(searchQ.replace(/\+/g, " "));
             var books = data.docs;
 
             for (var i=0; i<data.numFound; i++) {
