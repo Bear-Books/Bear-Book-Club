@@ -31,8 +31,12 @@ $(document).ready(
         var output5 = '</h3></a><p id="by_word">by </p><h6 id="book_author" style="color: black;">';
         var author = "";
         
-        var output6 = '</h6></div><div class="col"><p ></p><div class="btn btn-warning" id="add_book">Add Book To Reading List</div></div></div><hr>';
+        var output6 = '</h6></div><div class="col"><br><div class="btn btn-warning add-book" id="add_bookR';
+
+        var output7 = '">Add To Reading List</div><br><br><div class="btn btn-success add-book" id="add_bookC'
         
+        var output8 = '">Add to Completed List</div></div></div><hr>';
+
         var authorLink = "";
         var titleLink = "";
         var validBooks = [];
@@ -87,22 +91,34 @@ $(document).ready(
             console.dir(validBooks);
             
             $("#num_results").text(validBooks.length);
+            var counter = 0;
             for (const item of validBooks){
                 
                 try {
                     author = item.author_name.toString();
                     coverlink = "http://covers.openlibrary.org/b/id/" + item.cover_i.toString() + "-M.jpg";
+                    
                 }
                 catch(e) {}
                 title = item.title.toString();
                 //console.log(coverlink);
-                $( "#full_search" ).append(output1+titleLink+output2+coverlink+output3+titleLink+output4+title+output5+author+output6);
-               
+                $( "#full_search" ).append(output1+titleLink+output2+coverlink+output3+titleLink+output4+title+output5+author+output6+counter+output7+counter+output8);
+                counter++;
             }
 
-            $("#add_book").click(function() {
-                alert( "Added to your reading list!" );
+            $(".add-book").click(function(event) {
                 
+
+                var book_index = parseInt(event.target.id.slice(-1));
+                console.log(event.target.id.slice(-2));
+                console.dir(validBooks[book_index]);
+                
+                if (event.target.id.slice(-2) == 'R0') {
+                    alert("Added " + validBooks[book_index].title + " to Reading list");
+                }
+                else {
+                    alert("Added " + validBooks[book_index].title + " to Completed list");
+                }
             });
             
 
