@@ -1,6 +1,27 @@
-<button onclick = "returnInfoToScreen();">button</button>
+<style>
+    #chat, #privateChat{
+        height: 500px;
+    }
+
+    #chatWrap, #privateChatWrap{
+        float: left;
+        border: 1px solid black;
+    }
+</style>
+
+<button onclick = "returnInfoToScreen();">return google info</button>
 <div id = "users">empty</div>
-<button id = "theButton">the button</button>
+<button id = "theButton">add user</button>
+<button id = "aButton">another button</button>
+
+<div id = "privateChatWrap" style = "display: none;">
+        <div id="privateChat"></div>
+        <form id = "send-private-message">
+            <input size = "35" id = "privateMessage"></input>
+            <input type = "submit"></input>
+        </form>
+    </div>
+    <div id="theUsers"></div>
 <script>
 
 
@@ -17,16 +38,95 @@ function returnInfoToScreen(){
   } 
   }
 
+var theReceiver = "";
+var theName = "";
 $(document).ready(
     function() {        
         /**
          * Event handler for when the user attempts to register
          */
+                    console.log("test");
 
-         var $user = $('#users');
+         var $privateMessageForm = $('#send-private-message');
+        var $privateMessageBox = $('#privateMessage');
+        var $privateChat = $('#privateChat');
 
 
 
+        $privateMessageForm.submit(function(e){
+            e.preventDefault();
+                //console.log(data.nick);
+                //$privateChat.append("<span class = 'error'>"+data+"</span><br/>");
+            const googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+        const profile = googleUser.getBasicProfile();
+        var name = profile.getName();
+        var messageBox = $privateMessageBox.val();
+        if(profile === undefined){
+            console.log("user not signed in, no info to return");
+        }else{
+            $.ajax({
+                url: '/addMessageDatabase/',
+                type: 'POST',
+                dataType: 'json',
+                data: {sender: name,
+                receiver: theReceiver,
+                message: messageBox
+                },
+                success: function(data){
+                    $privateChat.append("<span class = 'msg'><b>"+name+":</b> "+messageBox+ "</span><br/>");
+
+                },
+                error: function(error){
+                    console.log("error saving order "+error);
+                }
+        });
+        }
+            $privateMessageBox.val('');
+        });
+            
+
+
+
+
+
+        $('#aButton').on('click', function(){
+
+        const googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+        const profile = googleUser.getBasicProfile();
+        var name = profile.getName();
+        if(profile === undefined){
+            console.log("user not signed in, no info to return");
+        }else{
+        $.ajax({
+            type: 'GET',
+            url: '/getOneUser',
+            data: {
+                user_name: name
+            },
+            success: function(data){
+                console.log('success single user', data);
+                console.log('the user is '+data.user_name);
+
+                /*
+                $.each(data, function(index, user){
+                    console.log(data);
+                    console.log("username "+data.user_name);
+                    console.log(data[index].user_name);
+                    //console.log($user);
+                });
+                console.log(data.user_name);
+                */
+            },
+            error: function(){
+                console.log('error on get user function');
+            }
+        });
+        }
+        });
+
+
+
+        var $user = $('#users');
         $.ajax({
             type: 'GET',
             url: '/getUserDatabase',
@@ -34,9 +134,8 @@ $(document).ready(
                 console.log('success', data);
                 $user.append("<p> hey everybody </p>");
                 $.each(data, function(index, user){
-                    console.log(data);
                     console.log(data[index].user_name);
-                    $user.append("<p>hey "+data[index].user_name+"</p>");
+                    $user.append("<button id = 'b"+index+"' onclick = 'privateMsg(this)'>"+data[index].user_name+ "</button><br/>")
                     //console.log($user);
                 });
             },
@@ -44,6 +143,83 @@ $(document).ready(
                 console.log('error on chat page function');
             }
         });
+
+
+        privateMsg = function(obj){
+            //alert("private message");
+                $('#privateChatWrap').show();
+        $('#privateChat').empty();
+        theReceiver = $(obj).text();
+        const googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+        const profile = googleUser.getBasicProfile();
+        var name = profile.getName();
+        theName = name;
+        if(profile === undefined){
+            console.log("user not signed in, no info to return");
+        }else{
+
+        $.ajax({
+            type: 'GET',
+            url: '/getMessageDatabase',
+            success: function(data){
+                console.log('success', data);
+                $.each(data, function(index, user){
+                    if((name === data[index].sender && 
+                    theReceiver === data[index].receiver) ||
+                    (theReceiver === data[index].sender &&
+                    name === data[index].receiver)){
+                        $privateChat.append("<span class = 'msg'><b>"+data[index].sender+":</b> "+data[index].message + "</span><br/>");
+                    console.log(data);
+                    }else{
+                        return;
+                    }
+                    console.log(data);
+                    //console.log($user);
+                });
+                if($privateChat.text() === ""){
+                    $privateChat.append("send a message to "+theReceiver);
+                }
+            },
+            error: function(){
+                console.log('error on chat page function');
+            }
+        });
+
+        }
+        }
+
+        setInterval(function(){
+            $('#privateChat').empty();
+            $.ajax({
+            type: 'GET',
+            url: '/getMessageDatabase',
+            success: function(data){
+                console.log('success', data);
+                $.each(data, function(index, user){
+                    if((theName === data[index].sender && 
+                    theReceiver === data[index].receiver) ||
+                    (theReceiver === data[index].sender &&
+                    theName === data[index].receiver)){
+                        $privateChat.append("<span class = 'msg'><b>"+data[index].sender+":</b> "+data[index].message + "</span><br/>");
+                    //console.log(data);
+                    }else{
+                        return;
+                    }
+                    //console.log(data);
+                    //console.log($user);
+                });
+                if($privateChat.text() === ""){
+                    $privateChat.append("send a message to "+theReceiver);
+                }
+                console.log("this is the timer")
+            },
+            error: function(){
+                console.log('error on chat page function');
+            }
+        });
+        }, 10000);
+
+
 
 /*
         $('#theButton').on('click', function(){
