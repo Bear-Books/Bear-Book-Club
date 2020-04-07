@@ -2,7 +2,18 @@ $(document).ready(
     function() {
 
         var searchQ = window.location.href.slice(window.location.href.indexOf('?') + 1);
-        var param = window.location.href.slice(window.location.href.indexOf('&') + 1);
+        var param = "undefined";
+        var openLibQ1 = "";
+        var openLibQ2 = "";
+        if (searchQ.includes('&')) {
+
+            searchQ = searchQ.slice(0,searchQ.indexOf('&'));
+            param = window.location.href.slice(window.location.href.indexOf('&') + 1);
+        }
+        
+        console.log(searchQ);
+        
+        console.log(param);
 
         var limit = 20;
         var output1 = '<div class="row"><div class="col"><a href="';
@@ -25,8 +36,25 @@ $(document).ready(
         var authorLink = "";
         var titleLink = "";
         var validBooks = [];
-
-        $.getJSON('https://openlibrary.org/search.json?q='+searchQ+'&mode=everything&has_fulltext=true', function(data) {
+        
+        if (param == "undefined") {
+            openLibQ1 = 'https://openlibrary.org/search.json?q=';
+            openLibQ2 = '&mode=everything&has_fulltext=true';
+            console.log("this works");
+        }
+        else if (param == "numEd") {
+            openLibQ1 = 'https://openlibrary.org/search.json?q=';
+            openLibQ2 = '&sort=editions&mode=ebooks&has_fulltext=true';
+        }
+        else if (param == "earlPub") {
+            openLibQ1 = 'https://openlibrary.org/search.json?q=';
+            openLibQ2 = '&sort=old&mode=ebooks&has_fulltext=true';
+        }
+        else if (param == "recPub") {
+            openLibQ1 = 'https://openlibrary.org/search.json?q=';
+            openLibQ2 = '&sort=new&mode=ebooks&has_fulltext=true';
+        }
+        $.getJSON(openLibQ1+searchQ+openLibQ2, function(data) {
 
             $("#searchQ").text(searchQ.replace("+"," "));
   
@@ -78,6 +106,27 @@ $(document).ready(
                 
             });
             
+
+            $("#rel").click(function() {
+
+                
+                window.open("/search?"+searchQ, "_self");
+            }); 
+    
+            $("#numEd").click(function() {
+    
+                window.open("/search?"+searchQ+"&numEd", "_self");
+            }); 
+    
+            $("#earlPub").click(function() {
+    
+                window.open("/search?"+searchQ+"&earlPub", "_self");
+            }); 
+    
+            $("#recPub").click(function() {
+    
+                window.open("/search?"+searchQ+"&recPub", "_self");
+            }); 
         });
         
 });
