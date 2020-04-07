@@ -23,7 +23,7 @@ $(document).ready(
          * Event handler for when the user attempts to register
          */
 
-         var $user = $('#users');
+        /* var $user = $('#users');
 
         $.ajax({
             type: 'GET',
@@ -41,7 +41,7 @@ $(document).ready(
             error: function(){
                 console.log('error on chat page function');
             }
-        });
+        });*/
 
 /*
         $('#theButton').on('click', function(){
@@ -60,7 +60,7 @@ $(document).ready(
   
   $('#theButton').on('click', function(){
         
-        const googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+       /* const googleUser = gapi.auth2.getAuthInstance().currentUser.get();
         const profile = googleUser.getBasicProfile();
         if(profile === undefined){
             console.log("user not signed in, no info to return");
@@ -68,7 +68,7 @@ $(document).ready(
 
           name = profile.getName();
               
-            /*  $.ajax({
+              $.ajax({
                   url: '/addUserDatabase/',
                   type: 'POST',
                   dataType: 'json',
