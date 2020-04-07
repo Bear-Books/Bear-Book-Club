@@ -11,9 +11,9 @@ $(document).ready(
             param = window.location.href.slice(window.location.href.indexOf('&') + 1);
         }
         
-        console.log(searchQ);
+        //console.log(searchQ);
         
-        console.log(param);
+        //console.log(param);
 
         var limit = 20;
         var output1 = '<div class="row"><div class="col"><a href="';
@@ -56,7 +56,7 @@ $(document).ready(
         }
         $.getJSON(openLibQ1+searchQ+openLibQ2, function(data) {
 
-            $("#searchQ").text(searchQ.replace("+"," "));
+            $("#searchQ").text(searchQ.replace("/+/g"," "));
   
             var books = data.docs;
 
