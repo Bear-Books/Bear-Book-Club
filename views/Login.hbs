@@ -1,0 +1,91 @@
+<div class="col-md-8 col-md-offset-2">
+
+    <h2>Sign In</h2>
+    <form class="form-horizontal" role="form" id="log-form">
+        <div class="form-group mt">
+            <div class="col-sm-10 col-sm-offset-2">
+            <div class="col-sm-3">
+                <label for="inputUsername" class="control-label">Username</label>
+            </div>
+            <div class="col-sm-9">
+                <input type="text" class="form-control input-lg required" id="inputUsername" placeholder="@username">
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-2">
+            <div class="col-sm-3">
+                <label for="inputPassword" class="control-label">Password</label>
+            </div>
+            <div class="col-sm-9">
+                <input type="password" class="form-control input-lg required" id="inputPassword"
+                       placeholder="Password">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row col-sm-offset-2 col-sm-10 mt">
+
+                <button type="submit" class="btn btn-warning btn-lg">Login</button>
+
+            </div>
+        </div>
+    </form>
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<meta name="google-signin-client_id" content="422623732850-oao5hsdt35e4eifi6k97kbbugf9i6g33.apps.googleusercontent.com">
+<meta name="google-signin-cookiepolicy" content="single_host_origin" />
+<meta name="google-signin-requestvisibleactions" content="https://schema.org/AddAction" />
+<meta name="google-signin-scope" content="https://www.googleapis.com/auth/plus.login" />
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+<a href="#" onclick="signOut();">Sign out</a>
+<div class="" onclick="returnInfoToScreen();">heyo</div>
+<script>
+
+    function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+  
+  var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+
+  }
+
+  function returnInfoToScreen(){
+    
+    const googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+  const profile = googleUser.getBasicProfile();
+  if(profile === undefined){
+    console.log("user not signed in, no info to return");
+  }else{
+    console.log("hey hey hey "+profile.getId());
+    console.log( profile.getName());
+  }
+    
+  }
+  
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
+
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({ username: username }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) { return done(null, false); }
+      if (!user.verifyPassword(password)) { return done(null, false); }
+      return done(null, user);
+    });
+  }
+));
+
+</script>
+</div>

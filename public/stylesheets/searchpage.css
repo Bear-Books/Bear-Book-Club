@@ -16,6 +16,9 @@ p {
 #book_author{
     color: black;
 }
+h6 {
+    color: black;
+}
 #book_title {
     color: black;
 }
@@ -27,4 +30,7 @@ p {
 }
 #buttons button {
     width: 28vh;
+}
+#add_book {
+    cursor: pointer;
 }
