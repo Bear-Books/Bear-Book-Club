@@ -1,3 +1,5 @@
+  var user_signed_in = false;
+
   function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
@@ -47,11 +49,12 @@
             success: function(user){
               // Upon success check how many users where in the database with that name
 
-              console.log('success', user);
+              console.dir('success', user);
               // If its more than one we do not want to add the user
                   if(user.length > 0){
                     console.log("user in database");
-                    console.log(user.user_name);
+                    console.dir(user);
+                    user_signed_in = true;
                   }
                   else{
                     //if it is less than 1 we want to add the user
@@ -107,4 +110,5 @@
     });
   }
 
+  
   

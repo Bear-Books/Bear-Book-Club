@@ -1,3 +1,5 @@
+
+
 $(document).ready(
     function() {
 
@@ -110,17 +112,26 @@ $(document).ready(
 
                 $(".add-book").click(function(event) {
                     
+                    if (user_signed_in == true) {
 
-                    var book_index = parseInt(event.target.id.slice(-1));
-                    console.log(event.target.id.slice(-2));
-                    console.dir(validBooks[book_index]);
-                    
-                    if (event.target.id.slice(-2) == 'R0') {
-                        alert("Added " + validBooks[book_index].title + " to Reading list");
+                        var book_index = parseInt(event.target.id.slice(-1));
+                        console.log(event.target.id.slice(-2));
+                        console.dir(validBooks[book_index]);
+                        
+                        // if user signed in:
+                        if (event.target.id.slice(-2) == 'R0') {
+                            alert("Added " + validBooks[book_index].title + " to Reading list");
+                            addBook();
+                        }
+                        else {
+                            alert("Added " + validBooks[book_index].title + " to Completed list");
+                        }
                     }
                     else {
-                        alert("Added " + validBooks[book_index].title + " to Completed list");
+                        alert("NOT SIGNED IN");
                     }
+                   // else :
+
                 });
                 
 
