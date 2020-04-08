@@ -118,36 +118,34 @@ $(document).ready(
                         //console.log(event.target.id.slice(-2));
                         console.dir(validBooks[book_index]);
 
+                         // need to remove parts from overly large JSON elements : can easily go over server limit and get error 413
+                        if (validBooks[book_index].isbn) {
+                            delete validBooks[book_index].isbn;
+                        }
+                        if (validBooks[book_index].text) {
+                            delete validBooks[book_index].text;
+                        }
+                        if (validBooks[book_index].seed) {
+                            delete validBooks[book_index].seed;
+                        }
+                        if (validBooks[book_index].oclc) {
+                            delete validBooks[book_index].oclc;
+                        }
+                        if (validBooks[book_index].edition_key) {
+                            delete validBooks[book_index].edition_key;
+                        }
+                        if (validBooks[book_index].id_goodreads) {
+                            delete validBooks[book_index].id_goodreads;
+                        }
+                        if (validBooks[book_index].id_amazon) {
+                            delete validBooks[book_index].id_amazon;
+                        }
+                        if (validBooks[book_index].publish_date) {
+                            delete validBooks[book_index].publish_date;
+                        }
                         // if user signed in:
                         if (event.target.id.slice(-2) == 'R0') {
-                            
-                            // need to remove parts from overly large JSON elements : can easily go over server limit and get error 413
-
-                            if (validBooks[book_index].isbn) {
-                                delete validBooks[book_index].isbn;
-                            }
-                            if (validBooks[book_index].text) {
-                                delete validBooks[book_index].text;
-                            }
-                            if (validBooks[book_index].seed) {
-                                delete validBooks[book_index].seed;
-                            }
-                            if (validBooks[book_index].oclc) {
-                                delete validBooks[book_index].oclc;
-                            }
-                            if (validBooks[book_index].edition_key) {
-                                delete validBooks[book_index].edition_key;
-                            }
-                            if (validBooks[book_index].id_goodreads) {
-                                delete validBooks[book_index].id_goodreads;
-                            }
-                            if (validBooks[book_index].id_amazon) {
-                                delete validBooks[book_index].id_amazon;
-                            }
-                            if (validBooks[book_index].publish_date) {
-                                delete validBooks[book_index].publish_date;
-                            }
-                        
+              
                             //console.dir(validBooks[book_index]);
 
                              $.ajax({
@@ -173,30 +171,6 @@ $(document).ready(
                         }
                         else {
                             
-                            if (validBooks[book_index].isbn) {
-                                delete validBooks[book_index].isbn;
-                            }
-                            if (validBooks[book_index].text) {
-                                delete validBooks[book_index].text;
-                            }
-                            if (validBooks[book_index].seed) {
-                                delete validBooks[book_index].seed;
-                            }
-                            if (validBooks[book_index].oclc) {
-                                delete validBooks[book_index].oclc;
-                            }
-                            if (validBooks[book_index].edition_key) {
-                                delete validBooks[book_index].edition_key;
-                            }
-                            if (validBooks[book_index].id_goodreads) {
-                                delete validBooks[book_index].id_goodreads;
-                            }
-                            if (validBooks[book_index].id_amazon) {
-                                delete validBooks[book_index].id_amazon;
-                            }
-                            if (validBooks[book_index].publish_date) {
-                                delete validBooks[book_index].publish_date;
-                            }
                             $.ajax({
                                     
                                 url: '/updateUser/:'+global_user_name+':/cList',
