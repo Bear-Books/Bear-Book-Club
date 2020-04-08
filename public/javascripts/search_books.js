@@ -142,6 +142,25 @@ $(document).ready(
                             alert("Added " + validBooks[book_index].title + " to Reading list");
                         }
                         else {
+                            $.ajax({
+                                    
+                                url: '/updateUser/:'+global_user_name+':/cList',
+                                type: 'POST',
+                                dataType: 'json',
+                                data: validBooks[book_index],
+                                success: function (data) { 
+                                    console.dir(data);
+                                },
+                                error:function (xhr, ajaxOptions, thrownError){
+                                    if(xhr.status==404) {
+                                        alert('status:' + xhr.status + ', status text: ' + xhr.statusText);
+                                    }
+                                    if(xhr.status==500) {
+                                        alert('status:' + xhr.status + ', status text: ' + xhr.statusText);
+                                    }
+                                }
+                            
+                            });
                             alert("Added " + validBooks[book_index].title + " to Completed list");
                         }
                     }

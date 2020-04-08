@@ -57,13 +57,13 @@ router.get('/getUserDatabase', function(req, res, next)
     //console.log(bookJSON);
     
     if (whichList == "rList") {
-      console.dir(userNameFind);
-      console.dir(whichList);
+      //console.dir(userNameFind);
+      //console.dir(whichList);
       //console.dir(JSON);
       UserDatabase.updateOne({user_name: userNameFind}, {
 
           $addToSet: {
-              to_read_list: "somethingmore1111"
+              to_read_list: JSON
           }
       },  function (error, success) {
         if (error) {
@@ -74,23 +74,22 @@ router.get('/getUserDatabase', function(req, res, next)
         res.json({"status": "update successful"});
       });
     }
-    /*
+    
     if (whichList == "cList") {
-      UserDatabase.update({user_name: userNameFind}, {
+      UserDatabase.updateOne({user_name: userNameFind}, {
 
-            $set: {
-              "user_name": req.body.user_name,
-              "comment": req.body.comment,
-              "up_votes": req.body.up_votes,
-              "down_votes": req.body.down_votes,
-          }
-      }, function (err, update) {
-          if (err)
-              throw err;
-
-          res.json({"status": "update successful"});
-      });
-    }*/
+        $addToSet: {
+            have_read_list: JSON
+        }
+    },  function (error, success) {
+      if (error) {
+          console.log(error);
+      } else {
+          console.log(success);
+      }
+      res.json({"status": "update successful"});
+    });
+    }
   });
 
 // router.get('/getOneUser', function(req, res, next){
