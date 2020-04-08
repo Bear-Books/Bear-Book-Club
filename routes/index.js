@@ -44,7 +44,54 @@ router.get('/getUserDatabase', function(req, res, next)
              });
          });
        });
+      
 
+  /* updates the user's reading list */
+  router.post('/updateUser/:userName/:whichList',function(req,res,next) {
+
+    var userNameFind = req.params.userName.substr(1);
+    userNameFind = userNameFind.substr(0, userNameFind.length-1);
+    var whichList = req.params.whichList;
+    var JSON = req.body;
+    
+    //console.log(bookJSON);
+    
+    if (whichList == "rList") {
+      console.dir(userNameFind);
+      console.dir(whichList);
+      //console.dir(JSON);
+      UserDatabase.updateOne({user_name: userNameFind}, {
+
+          $addToSet: {
+              to_read_list: "somethingmore1111"
+          }
+      },  function (error, success) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log(success);
+        }
+        res.json({"status": "update successful"});
+      });
+    }
+    /*
+    if (whichList == "cList") {
+      UserDatabase.update({user_name: userNameFind}, {
+
+            $set: {
+              "user_name": req.body.user_name,
+              "comment": req.body.comment,
+              "up_votes": req.body.up_votes,
+              "down_votes": req.body.down_votes,
+          }
+      }, function (err, update) {
+          if (err)
+              throw err;
+
+          res.json({"status": "update successful"});
+      });
+    }*/
+  });
 
 // router.get('/getOneUser', function(req, res, next){
 // 
@@ -115,42 +162,6 @@ router.get('/search', function(req, res, next) {
   var searchUrl = "http://openlibrary.org/search.json?q=" + searchString;
   var limit = 20;
   var top = [];
-  
-  /*
-  http.get(searchUrl, function(res) {
-    var body = '';
-
-    res.on('data', function(chunk){
-        body += chunk;
-    });
-
-    res.on('end', function(){
-        var bookJSON = JSON.parse(body);
-        var bookObj = bookJSON.docs;
-
-        sortBook = arraySort(bookObj, "isbn");
-        //console.log("Got a response: ", bookObj);
-        for (var i=0; i<limit; i++) {
-          //console.log(sortBook[i]);
-          
-            top.push(sortBook[i]);
-          
-        }
-
-        //console.dir(top.title);
-        for (var i=0; i<limit; i++) {
-          if (top[i].title) 
-            console.dir(top[i].title);
-          if (top[i].author_name) 
-            console.dir(top[i].author_name);
-      }
-        
-    });
-    }).on('error', function(e){
-          console.log("Got an error: ", e);
-  }); */
-
-  //console.log(searchUrl);
   
   res.render('search', { title: 'Express'});
   

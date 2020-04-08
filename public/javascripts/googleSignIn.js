@@ -1,4 +1,5 @@
   var user_signed_in = false;
+  var global_user_name = "";
 
   function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
@@ -18,7 +19,6 @@
         if(profile === undefined){
           console.log("user not signed in, no info to return");
         
-
         }else{
           console.log("hey hey hey "+profile.getId());
           $("#signOutButton").html("Sign Out");
@@ -34,10 +34,7 @@
 
           posts += '<div id="profilePageName"> Name: ' + profile.getName() + '<br>'+
                     'Email: ' + profile.getEmail()
-          
-          
-          
-          
+
                     + '</div>'+
                   '</div>';
 
@@ -54,7 +51,9 @@
                   if(user.length > 0){
                     console.log("user in database");
                     console.dir(user);
+
                     user_signed_in = true;
+                    global_user_name = profile.getName();
                   }
                   else{
                     //if it is less than 1 we want to add the user
