@@ -1,36 +1,32 @@
- <script src="/javascripts/user_info.js"></script>
- <script src="https://apis.google.com/js/platform.js" async defer></script>
-
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel='stylesheet' href='/stylesheets/userPage.css'/>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <body onclick` = "getUserPage()">
-
-    <p id = "profilePagePic">testing user page</p>
-
-   
+  <p id = "profilePagePic">testing user page</p>
+    
+   <!--USER PROFILE STUFF GOES HERE -->
 
     <script>
-
 //stack overflow said use this to 
 //fix google sign in loading info problems
-  function onLoad() {
-      gapi.load('auth2', function() {
-        gapi.auth2.init();
-      });
+    function onLoad() {
+        gapi.load('auth2', function() {
+          gapi.auth2.init();
+        });
 
-      
-    }      
-function returnGoogleSignInInfo(){
-        //if no user matches the handlebars string, check for google sign in
-            
-            //console.log(profile);
-
-           
         
-      }
-
-      
+      }      
+    function returnGoogleSignInInfo(){
+            //if no user matches the handlebars string, check for google sign in
+                
+                //console.log(profile);
+            
+          }
     </script>
     <div id="okay" onload = "returnGoogleSignInInfo();">loader</div>
     <div class="" onclick="returnGoogleSignInInfo();">heyo</div>
+
     <script src="/javascripts/general_search_button.js"></script>
     <script src="/javascripts/search_books.js"></script>
 </body>
