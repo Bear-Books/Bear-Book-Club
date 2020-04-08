@@ -1,3 +1,4 @@
+
 $(document).ready(
     function() {
 
@@ -110,17 +111,64 @@ $(document).ready(
 
                 $(".add-book").click(function(event) {
                     
+                    if (user_signed_in == true) {
 
-                    var book_index = parseInt(event.target.id.slice(-1));
-                    console.log(event.target.id.slice(-2));
-                    console.dir(validBooks[book_index]);
-                    
-                    if (event.target.id.slice(-2) == 'R0') {
-                        alert("Added " + validBooks[book_index].title + " to Reading list");
+                        var book_index = parseInt(event.target.id.slice(-1));
+                        //console.log(event.target.id.slice(-2));
+                        //console.dir(validBooks[book_index]);
+
+                        // if user signed in:
+                        if (event.target.id.slice(-2) == 'R0') {
+                            
+                             $.ajax({
+                                    
+                                url: '/updateUser/:'+global_user_name+':/rList',
+                                type: 'POST',
+                                dataType: 'json',
+                                data: validBooks[book_index],
+                                success: function (data) { 
+                                    console.dir(data);
+                                },
+                                error:function (xhr, ajaxOptions, thrownError){
+                                    if(xhr.status==404) {
+                                        alert('status:' + xhr.status + ', status text: ' + xhr.statusText);
+                                    }
+                                    if(xhr.status==500) {
+                                        alert('status:' + xhr.status + ', status text: ' + xhr.statusText);
+                                    }
+                                }
+                            
+                            });
+                            alert("Added " + validBooks[book_index].title + " to Reading list");
+                        }
+                        else {
+                            $.ajax({
+                                    
+                                url: '/updateUser/:'+global_user_name+':/cList',
+                                type: 'POST',
+                                dataType: 'json',
+                                data: validBooks[book_index],
+                                success: function (data) { 
+                                    console.dir(data);
+                                },
+                                error:function (xhr, ajaxOptions, thrownError){
+                                    if(xhr.status==404) {
+                                        alert('status:' + xhr.status + ', status text: ' + xhr.statusText);
+                                    }
+                                    if(xhr.status==500) {
+                                        alert('status:' + xhr.status + ', status text: ' + xhr.statusText);
+                                    }
+                                }
+                            
+                            });
+                            alert("Added " + validBooks[book_index].title + " to Completed list");
+                        }
                     }
                     else {
-                        alert("Added " + validBooks[book_index].title + " to Completed list");
+                        alert("NOT SIGNED IN");
                     }
+                   // else :
+
                 });
                 
 

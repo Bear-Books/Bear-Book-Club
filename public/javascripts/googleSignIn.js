@@ -1,3 +1,6 @@
+  var user_signed_in = false;
+  var global_user_name = "";
+
   function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
@@ -16,7 +19,6 @@
         if(profile === undefined){
           console.log("user not signed in, no info to return");
         
-
         }else{
           console.log("hey hey hey "+profile.getId());
           $("#signOutButton").html("Sign Out");
@@ -32,10 +34,7 @@
 
           posts += '<div id="profilePageName"> Name: ' + profile.getName() + '<br>'+
                     'Email: ' + profile.getEmail()
-          
-          
-          
-          
+
                     + '</div>'+
                   '</div>';
 
@@ -47,11 +46,14 @@
             success: function(user){
               // Upon success check how many users where in the database with that name
 
-              console.log('success', user);
+              console.dir('success', user);
               // If its more than one we do not want to add the user
                   if(user.length > 0){
                     console.log("user in database");
-                    console.log(user.user_name);
+                    console.dir(user);
+
+                    user_signed_in = true;
+                    global_user_name = profile.getName();
                   }
                   else{
                     //if it is less than 1 we want to add the user
@@ -107,4 +109,5 @@
     });
   }
 
+  
   
