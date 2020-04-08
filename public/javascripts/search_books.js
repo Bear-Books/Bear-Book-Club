@@ -58,90 +58,93 @@ $(document).ready(
             openLibQ1 = 'https://openlibrary.org/search.json?q=';
             openLibQ2 = '&sort=new&mode=ebooks&has_fulltext=true';
         }
-        $.getJSON(openLibQ1+searchQ+openLibQ2, function(data) {
+        if (!window.location.href.includes("User")) {
 
-            $("#searchQ").text(searchQ.replace(/\+/g, " "));
-            var books = data.docs;
+            $.getJSON(openLibQ1+searchQ+openLibQ2, function(data) {
 
-            for (var i=0; i<data.numFound; i++) {
-                
-                try {
-                    if (books[i].cover_i && books[i].isbn) {
-                        validBooks.push(books[i]);
-                    } 
-                } catch (e) {}
-                /*if (books[i].author_name) {
-                   author = books[i].author_name.toString();
-                }*/
-                try {
-                    if (validBooks.length == limit) {
-                        break;
-                    }
-                } catch (e) {}
-                //console.dir(author); 
-            }
-            $("#readingBearCon").remove();
-            $("#full_search").css("opacity", 1);
-            //console.dir(validBooks);
-            validBooks.sort(function(a, b){
-                
-                return a.isbn.length - b.isbn.length;
-            })
-            validBooks.reverse();
-            console.dir(validBooks);
-            
-            $("#num_results").text(validBooks.length);
-            var counter = 0;
-            for (const item of validBooks){
-                
-                try {
-                    author = item.author_name.toString();
-                    coverlink = "http://covers.openlibrary.org/b/id/" + item.cover_i.toString() + "-M.jpg";
+                $("#searchQ").text(searchQ.replace(/\+/g, " "));
+                var books = data.docs;
+
+                for (var i=0; i<data.numFound; i++) {
                     
+                    try {
+                        if (books[i].cover_i && books[i].isbn) {
+                            validBooks.push(books[i]);
+                        } 
+                    } catch (e) {}
+                    /*if (books[i].author_name) {
+                    author = books[i].author_name.toString();
+                    }*/
+                    try {
+                        if (validBooks.length == limit) {
+                            break;
+                        }
+                    } catch (e) {}
+                    //console.dir(author); 
                 }
-                catch(e) {}
-                title = item.title.toString();
-                //console.log(coverlink);
-                $( "#full_search" ).append(output1+titleLink+output2+coverlink+output3+titleLink+output4+title+output5+author+output6+counter+output7+counter+output8);
-                counter++;
-            }
+                $("#readingBearCon").remove();
+                $("#full_search").css("opacity", 1);
+                //console.dir(validBooks);
+                validBooks.sort(function(a, b){
+                    
+                    return a.isbn.length - b.isbn.length;
+                })
+                validBooks.reverse();
+                console.dir(validBooks);
+                
+                $("#num_results").text(validBooks.length);
+                var counter = 0;
+                for (const item of validBooks){
+                    
+                    try {
+                        author = item.author_name.toString();
+                        coverlink = "http://covers.openlibrary.org/b/id/" + item.cover_i.toString() + "-M.jpg";
+                        
+                    }
+                    catch(e) {}
+                    title = item.title.toString();
+                    //console.log(coverlink);
+                    $( "#full_search" ).append(output1+titleLink+output2+coverlink+output3+titleLink+output4+title+output5+author+output6+counter+output7+counter+output8);
+                    counter++;
+                }
 
-            $(".add-book").click(function(event) {
+                $(".add-book").click(function(event) {
+                    
+
+                    var book_index = parseInt(event.target.id.slice(-1));
+                    console.log(event.target.id.slice(-2));
+                    console.dir(validBooks[book_index]);
+                    
+                    if (event.target.id.slice(-2) == 'R0') {
+                        alert("Added " + validBooks[book_index].title + " to Reading list");
+                    }
+                    else {
+                        alert("Added " + validBooks[book_index].title + " to Completed list");
+                    }
+                });
                 
 
-                var book_index = parseInt(event.target.id.slice(-1));
-                console.log(event.target.id.slice(-2));
-                console.dir(validBooks[book_index]);
-                
-                if (event.target.id.slice(-2) == 'R0') {
-                    alert("Added " + validBooks[book_index].title + " to Reading list");
-                }
-                else {
-                    alert("Added " + validBooks[book_index].title + " to Completed list");
-                }
-            });
-            
+                $("#rel").click(function() {
 
-            $("#rel").click(function() {
-
-                
-                window.open("/search?"+searchQ, "_self");
-            }); 
-    
-            $("#numEd").click(function() {
-    
-                window.open("/search?"+searchQ+"&numEd", "_self");
-            }); 
-    
-            $("#earlPub").click(function() {
-    
-                window.open("/search?"+searchQ+"&earlPub", "_self");
-            }); 
-    
-            $("#recPub").click(function() {
-    
-                window.open("/search?"+searchQ+"&recPub", "_self");
-            }); 
-        });
+                    
+                    window.open("/search?"+searchQ, "_self");
+                }); 
         
+                $("#numEd").click(function() {
+        
+                    window.open("/search?"+searchQ+"&numEd", "_self");
+                }); 
+        
+                $("#earlPub").click(function() {
+        
+                    window.open("/search?"+searchQ+"&earlPub", "_self");
+                }); 
+        
+                $("#recPub").click(function() {
+        
+                    window.open("/search?"+searchQ+"&recPub", "_self");
+                }); 
+            
+        });
+    }
 });
