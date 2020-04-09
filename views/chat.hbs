@@ -1,27 +1,62 @@
 <style>
     #chat, #privateChat{
-        height: 500px;
+        height: 400px;
+        background-color:teal;
+        overflow-x: scroll;
+        overflow-wrap: break-word;
+        border: 1px solid black;
+        box-sizing: border-box;
+        padding: 0px;
+        margin: 0;
     }
 
     #chatWrap, #privateChatWrap{
-        float: left;
+        float: right;
         border: 1px solid black;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        background-color:teal;
+    }
+
+    #list_name, #private_box{
+        text-align: center;
+        border: 1px solid black;
+    }
+    #list_name{
+        background-color:thistle;
+    }
+    #private_box{
+        background-color:wheat;
+    }
+    .scrollClass{
+        border: 1px solid black;
+        height: 400px;
+        overflow-x: scroll;
+        scrollbar-color: dark;
     }
 </style>
 
 <button onclick = "returnInfoToScreen();">return google info</button>
-<div id = "users">empty</div>
 <button id = "theButton">add user</button>
 <button id = "aButton">another button</button>
-
-<div id = "privateChatWrap" style = "display: none;">
-        <div id="privateChat"></div>
+<div class = "container" style = "border: 1px solid black">
+    <div class = "row">
+        <div id = "list_name" class = "col-4">users</div>
+        <div id = "private_box" class = "col-8"></div>
+    </div>
+<div class = "row">
+<div id = "users" class = "col-4 scrollClass"></div>
+<div id = "privateChatWrap" class = "col-8" style = "display: none;">
+        <div id="privateChat" class = "width: 100%; border: 1px solid black;" ></div>
         <form id = "send-private-message">
             <input size = "35" id = "privateMessage"></input>
             <input type = "submit"></input>
         </form>
     </div>
     <div id="theUsers"></div>
+    </div>
+    </div>
 <script>
 
 
@@ -132,10 +167,10 @@ $(document).ready(
             url: '/getUserDatabase',
             success: function(data){
                 console.log('success', data);
-                $user.append("<p> hey everybody </p>");
                 $.each(data, function(index, user){
                     console.log(data[index].user_name);
-                    $user.append("<button id = 'b"+index+"' onclick = 'privateMsg(this)'>"+data[index].user_name+ "</button><br/>")
+
+                    $user.append("<button id = 'b"+index+"' class = 'btn-block btn-primary btn-lg btn-primary' onclick = 'privateMsg(this)'>"+data[index].user_name+ "</button>")
                     //console.log($user);
                 });
             },
@@ -143,13 +178,15 @@ $(document).ready(
                 console.log('error on chat page function');
             }
         });
-
+        var counter = 0;
 
         privateMsg = function(obj){
             //alert("private message");
-                $('#privateChatWrap').show();
+        $('#privateChatWrap').show();
         $('#privateChat').empty();
         theReceiver = $(obj).text();
+        $("#private_box").empty();
+        $("#private_box").append(theReceiver);
         const googleUser = gapi.auth2.getAuthInstance().currentUser.get();
         const profile = googleUser.getBasicProfile();
         var name = profile.getName();
@@ -158,18 +195,25 @@ $(document).ready(
             console.log("user not signed in, no info to return");
         }else{
 
+        counter = 0;
         $.ajax({
             type: 'GET',
             url: '/getMessageDatabase',
             success: function(data){
-                console.log('success', data);
+                console.log('success ', data);
                 $.each(data, function(index, user){
                     if((name === data[index].sender && 
                     theReceiver === data[index].receiver) ||
                     (theReceiver === data[index].sender &&
                     name === data[index].receiver)){
-                        $privateChat.append("<span class = 'msg'><b>"+data[index].sender+":</b> "+data[index].message + "</span><br/>");
+                        if(data[index].sender === name){
+                        $privateChat.append("<p class = 'msg' style = 'background-color:lightblue; border: 1px solid black; margin: 0; '><b>"+data[index].sender+":</b> "+data[index].message + "</p>");
+                        }else{
+                        $privateChat.append("<p class = 'msg' style = 'background-color: lightgreen;'><b>"+data[index].sender+":</b> "+data[index].message + "</p>");
+                        }
                     console.log(data);
+                    counter++;
+                    
                     }else{
                         return;
                     }
@@ -189,7 +233,8 @@ $(document).ready(
         }
 
         setInterval(function(){
-            $('#privateChat').empty();
+            var html = "";
+            var insideCounter = 0;
             $.ajax({
             type: 'GET',
             url: '/getMessageDatabase',
@@ -200,8 +245,13 @@ $(document).ready(
                     theReceiver === data[index].receiver) ||
                     (theReceiver === data[index].sender &&
                     theName === data[index].receiver)){
-                        $privateChat.append("<span class = 'msg'><b>"+data[index].sender+":</b> "+data[index].message + "</span><br/>");
+                        if(data[index].sender === theName){
+                        html += "<span class = 'msg' style = 'background-color:lightblue;'><b>"+data[index].sender+":</b> "+data[index].message + "</span><br/>";
+                        }else{
+                        html += "<span class = 'msg' style = 'background-color: lightgreen;'><b>"+data[index].sender+":</b> "+data[index].message + "</span><br/>";
+                        }
                     //console.log(data);
+                    insideCounter++;
                     }else{
                         return;
                     }
@@ -209,8 +259,17 @@ $(document).ready(
                     //console.log($user);
                 });
                 if($privateChat.text() === ""){
+                    $privateChat.empty();
                     $privateChat.append("send a message to "+theReceiver);
+                }else if(counter < insideCounter){
+                    $('#privateChat').empty();
+                    $privateChat.append(html);
+                    counter = insideCounter;
+                    console.log("load up all messages");
+                }else{
+                    console.log("no need to upload new code");
                 }
+                
                 console.log("this is the timer")
             },
             error: function(){
