@@ -93,6 +93,60 @@ router.get('/getUserDatabase', function(req, res, next)
     }
   });
 
+  /**
+ * Adds comments to our database
+ */
+router.post('/addComment', function(req, res, next) {
+
+  var name = req.query.user_name;
+
+
+      UserDatabase.updateOne({user_name:name}, {
+
+        $push :{
+            comment: req.body
+        }
+    },  function (error, success) {
+      if (error) {
+          console.log(error);
+      } else {
+          console.log(success);
+      }
+      res.json({"status": "update successful"});
+    });
+
+
+
+              
+
+            // Extract the request body which contains the comments
+            // comment = (req.body);
+            // comment.save(function (err, savedComment) {
+
+            //     if (err)
+            //         throw err;
+
+            //     res.json({
+            //         "id": savedComment._id
+            //     });
+            // });
+});
+
+router.get('/getComments', function(req, res, next)
+{
+
+  var name = "evan kelly";
+
+    UserDatabase.find({user_name:name}, function (err, comments) {
+        if (err)
+            res.send(err);
+
+            console.log(comments);
+        res.json(comments);
+    });
+});
+
+
 // router.get('/getOneUser', function(req, res, next){
 // 
 //   UserDatabase.find({user_name:name}, function(err, docs){
