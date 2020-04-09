@@ -2,10 +2,43 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel='stylesheet' href='/stylesheets/userPage.css'/>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<body onclick` = "getUserPage()">
+<script src="/javascripts/googleSignIn.js"></script>
+
+<body>
   <p id = "profilePagePic">Cheking user page</p>
     
    <!--USER PROFILE STUFF GOES HERE -->
+   <div class="container">
+<div class="row justify-content-md-center">
+<div class="card col-md-6">
+<br>
+<textarea class="form-control" rows="3" cols="50" id="inputPost"
+placeholder="Got something to say?" maxlength="280"></textarea>
+<label id="charRemaining" for="inputPost">280</label>
+<div class="row">
+<div class="col-md-3">
+<!--Camera-->
+<i class="fa fa-camera-retro fa-lg"></i>
+</div>
+<div class="col-md-3">
+<!--Video-->
+<i class="fas fa-video fa-lg"></i>
+</div>
+<div class="col-md-3">
+<!--Bar Chart-->
+<i class="fa fa-chart-bar fa-lg"></i>
+</div>
+<div class="col-md-3">
+<!-- Button -->
+<button type="text" id="postBtn" class="btn btnprimary" onclick="postComment()">Post</button>
+</div>
+</div>
+<br>
+<div id="commentSection" style="color: black;"></div>
+</div>
+</div> </div>
+
+
 
     <script>
 //stack overflow said use this to 
