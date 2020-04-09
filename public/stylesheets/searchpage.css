@@ -31,6 +31,9 @@ h6 {
 #buttons button {
     width: 28vh;
 }
-#add_book {
+.add-book {
     cursor: pointer;
+}
+.btn-group {
+    width: 50vw;
 }

@@ -1,0 +1,10 @@
+#user_con {
+    color: black;
+}
+#left_c {
+    padding-left: 20vh;
+}
+body {
+    width:100%;
+    overflow-x: hidden;
+}
