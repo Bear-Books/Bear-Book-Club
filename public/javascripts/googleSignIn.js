@@ -38,12 +38,14 @@
 
           var section5 = '</div></div></div><div class="col-sm-4"><div class="card"><div class="card-body"><h5 class="card-title">';
           var section6 = 'My Current Reading List</h5><p class="card-text">';
+          var booksReading = '';
           var section7 = '</p>';
           var section8 = '';
           var section9 = '</div></div></div>';
 
           var section10 = '<div class="col-sm-4"><div class="card"><div class="card-body"><h5 class="card-title">';
           var section11 =  'Books Completed</h5><p class="card-text">';
+          var booksCompleted = '';
           var section12 = '</p>';
           var section13 = '';
           var section14 = '</div></div></div></div>';
@@ -51,7 +53,7 @@
           var booksReadingJSON = null;
           var booksCompletedJSON = null;
 
-          posts += section1 +section2 +section3+section4+section5+section6+section7+section8+section9+section10+section11+section12+section13+section14;
+         
           /*
           posts += '<img src="'+ profileImg + '"style= "border-radius: 50%; width:120px"></img>';
 
@@ -61,7 +63,6 @@
                     + '</div>'+
                   '</div>';
           */
-
           $.ajax({
             // Finding a user with the same name as profile signed in with
             type: 'GET',
@@ -78,11 +79,32 @@
 
                     if (user[0].to_read_list) {
                       booksReadingJSON = user[0].to_read_list;
+                      //console.dir(booksReadingJSON);
                       console.dir(booksReadingJSON);
+                      for (var counter=0; counter<booksReadingJSON.length; counter++) {
+                        if (booksReadingJSON != null) {
+
+                          var booksReadingP1 = '<div class="row"><div class="col"><div id="book_title_link"><img id="book_cover_link" class="img-fluid rounded mb-3 mb-md-0" src="http://covers.openlibrary.org/b/id/';
+                          var bookLink = booksReadingJSON[counter].cover_i;
+                          var booksReadingP2 = '-M.jpg" alt=""></div></div><div class="col-9"><div id="book_title_link"><h3 id="book_title">';
+                          var bookTitle = booksReadingJSON[counter].title_suggest;
+
+                          var booksReadingP3 = '</h3></div><p id="by_word">by </p><h6 id="book_author">';
+                          
+                          var bookAuthor = booksReadingJSON[counter]['author_name[]'];
+                          var booksReadingP4 = ' </h6></div></div><hr>';
+                        
+                      
+                          booksReading += booksReadingP1+bookLink+booksReadingP2+bookTitle+booksReadingP3+bookAuthor+booksReadingP4;
+                          
+                        }
+                      }
+
+                      posts += section1+section2+section3+section4+section5+section6+booksReading+section7+section8+section9+section10+section11+booksCompleted+section12+section13+section14;
                     }
                     if(user[0].have_read_list) {
                       booksCompletedJSON = user[0].have_read_list;
-                      console.dir(booksCompletedJSON);
+                      //console.dir(booksCompletedJSON);
                     }
 
                     user_signed_in = true;
@@ -116,8 +138,9 @@
             }
         });
         
-
-
+        
+ 
+       
 
         }
 
