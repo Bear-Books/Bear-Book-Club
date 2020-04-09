@@ -35,20 +35,82 @@
         overflow-x: scroll;
         scrollbar-color: dark;
     }
+
+    .img_cont_msg{
+			height: 40px;
+			width: 40px;
+	}
+
+.user_img_msg{
+			height: 40px;
+			width: 40px;
+			border:1.5px solid #f5f6fa;
+		
+		}
+.msg_card_body{
+			overflow-y: auto;
+		}
+
+.msg_cotainer{
+		margin-top: auto;
+		margin-bottom: auto;
+		margin-left: 10px;
+		border-radius: 25px;
+		background-color: #82ccdd;
+		padding: 10px;
+		position: relative;
+	}
+	.msg_cotainer_send{
+		margin-top: auto;
+		margin-bottom: auto;
+		margin-right: 10px;
+		border-radius: 25px;
+		background-color: #78e08f;
+		padding: 10px;
+		position: relative;
+	}
 </style>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.js"></script>
 
 <button onclick = "returnInfoToScreen();">return google info</button>
 <button id = "theButton">add user</button>
 <button id = "aButton">another button</button>
-<div class = "container" style = "border: 1px solid black">
+<div class = "container" style = "border: 1px solid black; border-radius: 25px;">
     <div class = "row">
         <div id = "list_name" class = "col-4">users</div>
         <div id = "private_box" class = "col-8"></div>
     </div>
 <div class = "row">
 <div id = "users" class = "col-4 scrollClass"></div>
-<div id = "privateChatWrap" class = "col-8" style = "display: none;">
-        <div id="privateChat" class = "width: 100%; border: 1px solid black;" ></div>
+<div id = "privateChatWrap" class = "col-8" style = "">
+        <div id="privateChat" class = "width: 100%; border: 1px solid black;" >
+            <div class="card-body msg_card_body">
+							<div class="d-flex justify-content-start mb-4">
+								<div class="img_cont_msg">
+									<img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img_msg">
+								</div>
+								<div class="msg_cotainer">
+									Hi, how are you samim?
+									<span class="msg_time">8:40 AM, Today</span>
+								</div>
+							</div>
+							<div class="d-flex justify-content-end mb-4">
+								<div class="msg_cotainer_send">
+									Hi Khalid i am good tnx how about you?
+									<span class="msg_time_send">8:55 AM, Today</span>
+								</div>
+								<div class="img_cont_msg"><img src=""class="rounded-circle user_img_msg">
+                            </div>
+                    </div>
+        </div>
+        </div>
         <form id = "send-private-message">
             <input size = "35" id = "privateMessage"></input>
             <input type = "submit"></input>
@@ -59,8 +121,6 @@
     </div>
 <script>
 
-
-<script>
 
 function returnInfoToScreen(){
     
@@ -321,7 +381,7 @@ $(document).ready(
                       console.log("error saving order "+error);
                   }
           });*/
-        }            
+                    
 
   });
 

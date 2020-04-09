@@ -67,7 +67,7 @@ router.post('/addUserDatabase', function(req, res, next) {
 /**
  * Adds comments to our database
  */
-/*
+
 router.post('/addMessageDatabase', function(req, res, next) {
 
   // Extract the request body which contains the comments
@@ -82,7 +82,7 @@ router.post('/addMessageDatabase', function(req, res, next) {
       });
   });
 });
-*/
+
 /*
 var UserDatabase = require('../models/UserDatabase');
 
