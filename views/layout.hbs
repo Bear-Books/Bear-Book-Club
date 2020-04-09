@@ -4,6 +4,7 @@
     <title>Bear Book Club</title>
     <link rel='stylesheet' href='/stylesheets/index.css'/>
     <link rel='stylesheet' href='/stylesheets/navbar.css'/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'/>  
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="/javascripts/register.js"></script>
@@ -14,12 +15,14 @@
     
 
     <!-- added scripts, messed up the nav bar -->
-        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!-- added scripts, messed up the nav bar -->
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="/javascripts/googleSignIn.js"></script>
+    <script src="/javascripts/navbar.js"></script>
+
     <link href="https://fonts.googleapis.com/css?family=Bad+Script&display=swap" rel="stylesheet">
+
   </head>
   <body>
 
@@ -50,9 +53,19 @@
 
               <div id="sign_in-con">
                 <ul id="sign_in" class="nav ml-auto navbar-nav">
-                    <li class="nav-item"><a href="/Login" class="nav-link fas fa-user"> Sign In</a></li>
-                    <li class="nav-item"><a href="/users/register" class="nav-link far fa-user"> Register</a></li>
+                  <!--<meta name="google-signin-client_id" content="422623732850-oao5hsdt35e4eifi6k97kbbugf9i6g33.apps.googleusercontent.com">-->
+                  <meta name="google-signin-client_id" content="869028558089-ajcsnb323shupvft242d2eako6eog1gq.apps.googleusercontent.com">
+
+                  <meta name="google-signin-cookiepolicy" content="single_host_origin" />
+                  <meta name="google-signin-requestvisibleactions" content="https://schema.org/AddAction" />
+                  <meta name="google-signin-scope" content="https://www.googleapis.com/auth/plus.login" />
+                  <div class="g-signin2" id="signInButton" data-onsuccess="onSignIn"></div>
+                  <div id="profilePic" onclick="openUserPage();"></div>
                 </ul>
+                <div >
+                <a href="#" onclick="signOut();" id="signOutButton"></a>
+                </div>
+
               </div>
           </div>
       </nav>
@@ -99,19 +112,18 @@
 
     <script>
 
-$(document).ready(function(){
+      $(document).ready(function(){
 
 
-  function onLoad() {
-      gapi.load('auth2', function() {
-        gapi.auth2.init();
-      });
-    }
+        function onLoad() {
+            gapi.load('auth2', function() {
+              gapi.auth2.init();
+            });
+          }
 
-})
-     
+      })
+          
     </script>
 
   </body>
-  
 </html>

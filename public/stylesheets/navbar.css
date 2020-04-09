@@ -14,7 +14,6 @@
 #sign_in-con {
     width: 32vh;
     padding-right: 0.5%;
-
 }
 
 #Name {
@@ -37,6 +36,7 @@
     border-radius: 0;
 }
 
+
 .search_input{
     color: white;
     border: 0;
@@ -50,7 +50,7 @@
 
 .searchbar:hover > .search_input{
     padding: 0 10px;
-    width: 450px;
+    width: 325px;
     caret-color:red;
     transition: width 0.4s linear;
 }
@@ -72,3 +72,6 @@
     text-decoration:none;
 }
   
+#profilePic {
+    cursor: pointer;
+}

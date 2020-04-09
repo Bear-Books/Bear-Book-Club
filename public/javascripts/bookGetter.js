@@ -3,11 +3,12 @@ $(document).ready(function() {
     //isbn taken from invisible paragraph, unsure how to 
     //directly take handlebars and input it as an argument
 
-    console.log("started");
-    var isbn = $("#page1").text();
-    isbn = isbn.toString();
+    //console.log("started");
+    //var isbn = $("#page1").text();
+    //isbn = isbn.toString();
 
     //json page for information about specific book
+    /*
     $.getJSON('https://openlibrary.org/api/books?bibkeys=ISBN:'+isbn+'&jscmd=data&format=json', function(data) {
         var posts = "<br/>";
         console.log(data);
@@ -82,5 +83,5 @@ $(document).ready(function() {
         $("#tester").html(posts);
 
        });
-       
+       */
  });
