@@ -31,7 +31,7 @@
           // posts is what the user profile gets appended to
           var posts = '<div id = "container">';
           
-          var section1 = '<div class="row"><div class="col-sm-4"><div class="card"><div class="card-body"><img src="'+ profileImg+'id="profile_img"></img>';
+          var section1 = '<div class="row"><div class="col-sm-3"><div class="card"><div class="card-body"><img src="'+ profileImg+'id="profile_img"></img>';
           var section2 = '<h5 class="card-title">'+profile.getName()+'</h5><p class="card-text">';
           var section3 = '</p>';
           var section4 = '';
