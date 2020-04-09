@@ -144,7 +144,7 @@ $(document).ready(
                             delete validBooks[book_index].publish_date;
                         }
                         // if user signed in:
-                        if (event.target.id.slice(-2) == 'R0') {
+                        if (event.target.id.charAt(8) == 'R') {
               
                             //console.dir(validBooks[book_index]);
 
