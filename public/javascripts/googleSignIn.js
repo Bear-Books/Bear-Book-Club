@@ -27,9 +27,29 @@
           $("#profilePic").show();
           $("#profilePic").html(tag);
           $("#signInButton").hide();
-
+          
+          // posts is what the user profile gets appended to
           var posts = '<div id = "container">';
-            
+          
+          var section1 = '<div class="row"><div class="col-sm-4"><div class="card"><div class="card-body"><img src="'+ profileImg+'id="profile_img"></img>';
+          var section2 = '<h5 class="card-title">'+profile.getName()+'</h5><p class="card-text">';
+          var section3 = 'With supporting text below as a natural lead-in to additional content.</p>';
+          var section4 = '<a href="#" class="btn btn-primary">Go somewhere</a>';
+
+          var section5 = '</div></div></div><div class="col-sm-4"><div class="card"><div class="card-body"><h5 class="card-title">';
+          var section6 = 'My Current Reading List</h5><p class="card-text">';
+          var section7 = 'With supporting text below as a natural lead-in to additional content.</p>';
+          var section8 = '<a href="#" class="btn btn-primary">Go somewhere</a>';
+          var section9 = '</div></div></div>';
+
+          var section10 = '<div class="col-sm-4"><div class="card"><div class="card-body"><h5 class="card-title">';
+          var section11 =  'Books Completed</h5><p class="card-text">';
+          var section12 = 'With supporting text below as a natural lead-in to additional content.</p>';
+          var section13 = '<a href="#" class="btn btn-primary">Go somewhere</a>';
+          var section14 = '</div></div></div></div>';
+
+          posts += section1 +section2 +section3+section4+section5+section6+section7+section8+section9+section10+section11+section12+section13+section14;
+          /*
           posts += '<img src="'+ profileImg + '"style= "border-radius: 50%; width:120px"></img>';
 
           posts += '<div id="profilePageName"> Name: ' + profile.getName() + '<br>'+
@@ -37,7 +57,7 @@
 
                     + '</div>'+
                   '</div>';
-
+          */
 
           $.ajax({
             // Finding a user with the same name as profile signed in with
