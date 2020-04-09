@@ -1,5 +1,6 @@
   var user_signed_in = false;
   var global_user_name = "";
+  var global_user_pic = "";
 
   function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
@@ -12,6 +13,7 @@
 
     tag = '<img src="'+ profileImg + '"style= "border-radius: 50%; width:60px"></img>'
     console.log(tag);
+    global_user_pic = '<img src="'+ profileImg + '"style= "border-radius: 50%; width:10px"></img>';
   
   var id_token = googleUser.getAuthResponse().id_token;
         console.log("ID Token: " + id_token);
@@ -31,7 +33,7 @@
           // posts is what the user profile gets appended to
           var posts = '<div id = "container">';
           
-          var section1 = '<div class="row"><div class="col-sm-3"><div class="card"><div class="card-body"><img src="'+ profileImg+'id="profile_img"></img>';
+          var section1 = '<div class="row"><div class="col-sm-3"><div class="card"><div class="card-body">' + tag;
           var section2 = '<h5 class="card-title">'+profile.getName()+'</h5><p class="card-text">';
           var section3 = '</p>';
           var section4 = '';
@@ -215,14 +217,119 @@
                 console.log('error on chat page function');
             }
         });
-        
-        
  
-       
 
         }
 
   }
+
+
+  function getComments() {
+    console.log("Getting comments");
+    $.ajax({
+        url: '/getComments?user_name='+global_user_name,
+        type: 'GET',
+        success: function (data) {
+            var comments = "";
+            console.dir(data[0].comment);
+            for (var i = 0; i < data[0].comment.length; i++) {
+                comments += "<div class='row justify-content-md-center pt-4'>" +
+                    "<div class='card col-12'><div class='row'>"
+                    + "<div><span style='font-weight:bold'>"+ data[0].comment[i].user_name + "</span> : " + data[0].comment[i].comment + "</div>" + "</div></div></div>";
+                console.dir("this is a comment: " + data[0].comment[i].comment);
+            }
+            console.log("testing here "+ comments);
+            $("#commentSection").html(comments);
+        }
+    });
+}
+
+  function postComment(){
+    console.log("press button");       
+    $.ajax({
+        url: '/addComment?user_name='+global_user_name,
+        type: 'POST',
+        data: {user_name:global_user_name,comment:$('#inputPost').val()},
+        success: function (data) {
+          getComments();
+        }
+    });
+
+  }
+  $(document).ready(
+    
+    function(){
+      var totalCharacters = 300;
+
+      $("#inputPost").keyup(function (event) {
+      console.log("im typing");
+
+        var inputText = event.target.value;
+        $("#charRemaining").html(totalCharacters - inputText.length);
+    });
+    getComments();
+
+    }
+  )
+ 
+  
+
+  
+    
+
+    /**
+     * When the page loads (or is refreshed) we request all comments from the server
+     */
+    // function getComments() {
+    //     $.ajax({
+    //         url: '/getComments/',
+    //         type: 'GET',
+    //         success: function (data) {
+    //             var comments = "";
+    //             for (var i = 0; i < data.length; i++) {
+    //                 comments += "<div class='row justify-content-md-center pt-4'>" +
+    //                     "<div class='card col-12'><div class='row'>"
+    //                     + "<div>"+ data[i].comment + "</div>" + "</div></div></div>";
+    //             }
+    //             $("#feedPosts").html(comments);
+    //         }
+    //     });
+    // }
+
+    /**
+     * Event handler for when the user posts a comment
+     */
+    $("#postBtn").click(function (event) {            
+        $.ajax({
+            url: '/addComment/',
+            type: 'POST',
+            data: {user_name:profile.getName(), comment:$('#inputPost').val()},
+            success: function (data) {
+                // getComments();
+            }
+        });
+    });
+
+    /**
+     * Event handler for when the user deletes a comment
+     */
+    // $("#feedPosts").click(function (event) {
+
+    //     /*var targetArray = event.target.name.split(" ");
+    //     console.log(targetArray);*/
+    //     if(event.target.name)
+    //     {
+    //         $.ajax({
+    //             url: '/removeComment/' + event.target.name,
+    //             type: 'DELETE',
+    //             success: function(result) {
+    //                 // getComments();
+    //             }
+    //         });
+    //     }
+
+    // });
+
 
   function returnInfoToScreen(){
     

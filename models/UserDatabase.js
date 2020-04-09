@@ -9,7 +9,8 @@ var UserSchema = new Schema({
     user_name: {type: String},
     date_created : {type: Date, default: new Date()},
     to_read_list: {type: Array},
-    have_read_list: {type: Array}
+    have_read_list: {type: Array},
+    comment: {type: Array}
 });
 
 module.exports = mongoose.model('userDatabase', UserSchema);
