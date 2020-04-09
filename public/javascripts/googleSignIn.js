@@ -79,7 +79,9 @@
                     console.log("user in database");
                     console.dir(user);
 
+
                     if (user[0].to_read_list) {
+                     
                       booksReadingJSON = user[0].to_read_list;
                       //console.dir(booksReadingJSON);
                       console.dir(booksReadingJSON);
