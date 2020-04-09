@@ -48,6 +48,9 @@
           var section13 = '';
           var section14 = '</div></div></div></div>';
 
+          var booksReadingJSON = null;
+          var booksCompletedJSON = null;
+
           posts += section1 +section2 +section3+section4+section5+section6+section7+section8+section9+section10+section11+section12+section13+section14;
           /*
           posts += '<img src="'+ profileImg + '"style= "border-radius: 50%; width:120px"></img>';
@@ -63,6 +66,7 @@
             // Finding a user with the same name as profile signed in with
             type: 'GET',
             url: '/getUserDatabase?user_name='+ profile.getName(),
+            dataType: 'json',
             success: function(user){
               // Upon success check how many users where in the database with that name
 
@@ -71,6 +75,15 @@
                   if(user.length > 0){
                     console.log("user in database");
                     console.dir(user);
+
+                    if (user[0].to_read_list) {
+                      booksReadingJSON = user[0].to_read_list;
+                      console.dir(booksReadingJSON);
+                    }
+                    if(user[0].have_read_list) {
+                      booksCompletedJSON = user[0].have_read_list;
+                      console.dir(booksCompletedJSON);
+                    }
 
                     user_signed_in = true;
                     global_user_name = profile.getName();

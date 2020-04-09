@@ -29,6 +29,7 @@ router.get('/getUserDatabase', function(req, res, next)
 });
 
 
+
   router.post('/addUserDatabase', function(req, res, next) {
        console.log("got here")
          // Extract the request body which contains the comments
