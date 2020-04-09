@@ -1,4 +1,4 @@
-  var user_signed_in = false;
+var user_signed_in = false;
   var global_user_name = "";
 
   function onSignIn(googleUser) {
@@ -67,7 +67,10 @@
             // Finding a user with the same name as profile signed in with
             type: 'GET',
             url: '/getUserDatabase?user_name='+ profile.getName(),
+
             dataType: 'json',
+
+
             success: function(user){
               // Upon success check how many users where in the database with that name
 
@@ -185,5 +188,4 @@
     });
   }
 
-  
   

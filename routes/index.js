@@ -1,8 +1,72 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/Users');
-
 var UserDatabase = require('../models/UserDatabase');
+var ChatDatabase = require('../models/ChatDatabase');
+
+
+/*
+router.get('/getUserDatabase', function(req, res, next)
+{
+    UserDatabase.find({}, function (err, users) {
+        if (err)
+            res.send(err);
+
+        res.json(users);
+    });
+});
+*/
+router.get('/getMessageDatabase', function(req, res, next)
+{
+    ChatDatabase.find({}, function (err, messages) {
+        if (err)
+            res.send(err);
+
+        res.json(messages);
+    });
+});
+
+router.get('/getOneUser', function(req, res, next){
+  var name = req.query.user_name;
+  console.log("this is the single user: "+name);
+  UserDatabase.findOne({user_name:name}, function(err, docs){
+    if(err) res.send(err);
+    console.log(docs);
+    res.json(docs);
+    /*
+    if(docs.length){
+      console.log(docs.length);
+      console.log("found "+docs.user_name);
+      res.json(docs);
+      
+    }else{
+      console.log('insert new username');
+    }
+    */
+  });
+});
+
+
+/**
+ * Adds comments to our database
+ */
+
+router.post('/addMessageDatabase', function(req, res, next) {
+
+  // Extract the request body which contains the comments
+  cd = new ChatDatabase(req.body);
+  cd.save(function (err, savedMessage) {
+
+      if (err)
+          throw err;
+
+      res.json({
+          "user_name": savedMessage._user_name
+      });
+  });
+});
+
+
 
 router.get('/getUserDatabase', function(req, res, next)
 {
@@ -27,7 +91,6 @@ router.get('/getUserDatabase', function(req, res, next)
         res.json(users);
     });
 });
-
 
 
   router.post('/addUserDatabase', function(req, res, next) {
@@ -127,7 +190,8 @@ router.get('/getUserDatabase', function(req, res, next)
 
 
 
-var http = require('http');
+//var http = require('http');
+
 
 
 /* GET home page. */
