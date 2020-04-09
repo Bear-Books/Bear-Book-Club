@@ -93,37 +93,51 @@ router.get('/getUserDatabase', function(req, res, next)
     }
   });
 
-// router.get('/getOneUser', function(req, res, next){
-// 
-//   UserDatabase.find({user_name:name}, function(err, docs){
-//     if(docs.length){
-//       console.log(docs.length);
-//       console.log("Already in database");
-//     }else{
-         
-//     }
-//   });
-// });
+  router.post('/deleteBook:userName/:whichList/:bookTitle',function(req,res,next) {
 
-/**
- * Adds comments to our database
- * **/
+    var userNameFind = req.params.userName.substr(1);
+    userNameFind = userNameFind.substr(0, userNameFind.length-1);
+    var whichList = req.params.whichList;
+    var bookFound = req.params.bookTitle; 
 
-  // router.post('/addUserDatabase', function(req, res, next) {
-  //    console.log("got here")
-  //      // Extract the request body which contains the comments
-  //      ud = new UserDatabase(req.body);
-  //      ud.save(function (err, savedUser) {
-     
-  //          if (err)
-  //              throw err;
-     
-  //          res.json({
-  //              //"user_name": savedUser._user_name
-  //              "user_name": savedUser.name
-  //          });
-  //      });
-  //    });
+    if (whichList == "rList") {
+      //console.dir(userNameFind);
+      //console.dir(whichList);
+      //console.dir(JSON);
+      UserDatabase.update({user_name: userNameFind},{
+
+        $pull: {
+          have_read_list: {title: bookTitle}
+        }
+      }
+      ,  function (error, success) {
+
+        if (error) {
+            console.log(error);
+        } else {
+            console.log(success);
+        }
+        res.json({"status": "update successful"});
+      });
+    }
+    
+    if (whichList == "cList") {
+      UserDatabase.updateOne({user_name: userNameFind}, {
+
+        $addToSet: {
+            have_read_list: JSON
+        }
+    },  function (error, success) {
+      if (error) {
+          console.log(error);
+      } else {
+          console.log(success);
+      }
+      res.json({"status": "update successful"});
+    });
+    }
+
+  });
 
 
 
