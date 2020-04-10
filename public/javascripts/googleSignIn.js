@@ -1,6 +1,11 @@
   var user_signed_in = false;
   var global_user_name = "";
   var global_user_pic = "";
+  var searchQ = window.location.href.slice(window.location.href.indexOf('?') + 1);
+
+
+
+
 
   function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
@@ -9,10 +14,9 @@
     console.log('Image URL: ' + profile.getImageUrl());
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 
-    profileImg = profile.getImageUrl();
+    var profileImg = profile.getImageUrl();
 
-    tag = '<img src="'+ profileImg + '"style= "border-radius: 50%; width:60px"></img>'
-    console.log(tag);
+    var tag = '<img src="'+ profileImg + '"style= "border-radius: 50%; width:60px"></img>';
     global_user_pic = '<img src="'+ profileImg + '"style= "border-radius: 50%; width:10px"></img>';
   
   var id_token = googleUser.getAuthResponse().id_token;
@@ -34,7 +38,7 @@
           var posts = '<div id = "container">';
           
           var section1 = '<div class="row"><div class="col-sm-3"><div class="card"><div class="card-body">' + tag;
-          var section2 = '<h5 class="card-title">'+profile.getName()+'</h5><p class="card-text">';
+          var section2 = '<h5 class="card-title">'+searchQ+'</h5><p class="card-text">';
           var section3 = '</p>';
           var section4 = '';
 
@@ -65,6 +69,11 @@
                     + '</div>'+
                   '</div>';
           */
+
+
+
+
+
           $.ajax({
             // Finding a user with the same name as profile signed in with
             type: 'GET',
@@ -107,6 +116,7 @@
                         }
                       }
                     }
+
                     if(user[0].have_read_list) {
                       booksCompletedJSON = user[0].have_read_list;
                       
@@ -128,7 +138,7 @@
                           var booksReadingP5 = '</div></div><hr>';
 
                           
-                        
+  
                           booksCompleted += booksReadingP1+bookLink+booksReadingP2+bookTitle+booksReadingP3+bookAuthor+booksReadingP4+deleteButton2+booksReadingP5;
                           
                         }
@@ -143,6 +153,7 @@
                   }
                   else{
                     //if it is less than 1 we want to add the user
+                    console.log(user[0]);
                     console.log("user not in database");
 
                     // Adding the user
@@ -150,7 +161,7 @@
                       url: '/addUserDatabase/',
                       type: 'POST',
                       dataType: 'json',
-                      data: {user_name: profile.getName()},
+                      data: {user_name: profile.getName(), profile_pic: profile.getImageUrl()},
                       success: function(data){
                           console.log("added the user "+data);
                           console.log(data.user_name);
@@ -163,16 +174,16 @@
               });
                   }
                   $("#profilePagePic").html(posts);
-                  $(".rem-book").click(function(event) {
+                  $("button").click(function(event) {
 
                     var whichList = event.target.id.substring(0, 11);
                     var bookTitle = event.target.id.substring(11, event.target.id.length);
                     if (whichList == "removeBookR") {
                       console.log(whichList);
                       console.log(bookTitle);
-                      
+
                       $.ajax({
-                        url: '/deleteBook/:'+global_user_name+'/:'+whichList+'/:'+bookTitle,
+                        url: '/deleteBook/:'+global_user_name  +'/:'+whichList+'/:'+bookTitle,
                         type: 'POST',
                         dataType: 'json',
                         
@@ -186,10 +197,11 @@
                         });
 
                     }
-                    if (whichList == "removeBookC") {
+                    else {
 
                       console.log(whichList);
                       console.log(bookTitle);
+
                       $.ajax({
                         url: '/deleteBook/:'+global_user_name+'/:'+whichList+'/:'+bookTitle,
                         type: 'POST',
@@ -200,56 +212,60 @@
                           console.log("Updated list!");
                         },
                         error: function(error){
-                            console.log("Didn't work");
-                          }
+                            console.log("error saving order "+error);
+                                }
                         });
                     }
-                   
-                  //reload page here!
-
-                  window.open("/User?"+global_user_name,"_self");
+                    window.open("/User?"+searchQ,"_self");
                   });
             },
             error: function(){
                 console.log('error on chat page function');
             }
         });
- 
-
         }
-
   }
+
+
+
+
+
+
+
+
 
 
   function getComments() {
     console.log("Getting comments");
     $.ajax({
-        url: '/getComments?user_name='+global_user_name,
+        url: '/getComments?user_name='+searchQ,
         type: 'GET',
         success: function (data) {
+          console.dir(data);
             var comments = "";
+            var otherBookList = "";
             
             try {
-              //console.dir(data[0].comment);
+              console.dir(data[0].comment);
               for (var i = 0; i < data[0].comment.length; i++) {
                   comments += "<div class='row justify-content-md-center pt-4'>" +
                       "<div class='card col-12'><div class='row'>"
                       + "<div><span style='font-weight:bold'>"+ data[0].comment[i].user_name + "</span> : " + data[0].comment[i].comment + "</div>" + "</div></div></div>";
                   console.dir("this is a comment: " + data[0].comment[i].comment);
               }
-            }
-            catch (e) {}
-            
+            }catch(e) {}
             console.log("testing here "+ comments);
             $("#commentSection").html(comments);
         }
     });
+
 }
 
   function postComment(){
-    console.log("press button");       
+    console.log("press button");   
+    console.log("this is me:"+searchQ);    
     $.ajax({
-        url: '/addComment?user_name='+global_user_name,
+        url: '/addComment?user_name='+searchQ,
         type: 'POST',
         data: {user_name:global_user_name,comment:$('#inputPost').val()},
         success: function (data) {
@@ -274,30 +290,6 @@
     }
   )
  
-  
-
-  
-    
-
-    /**
-     * When the page loads (or is refreshed) we request all comments from the server
-     */
-    // function getComments() {
-    //     $.ajax({
-    //         url: '/getComments/',
-    //         type: 'GET',
-    //         success: function (data) {
-    //             var comments = "";
-    //             for (var i = 0; i < data.length; i++) {
-    //                 comments += "<div class='row justify-content-md-center pt-4'>" +
-    //                     "<div class='card col-12'><div class='row'>"
-    //                     + "<div>"+ data[i].comment + "</div>" + "</div></div></div>";
-    //             }
-    //             $("#feedPosts").html(comments);
-    //         }
-    //     });
-    // }
-
     /**
      * Event handler for when the user posts a comment
      */
@@ -312,25 +304,6 @@
         });
     });
 
-    /**
-     * Event handler for when the user deletes a comment
-     */
-    // $("#feedPosts").click(function (event) {
-
-    //     /*var targetArray = event.target.name.split(" ");
-    //     console.log(targetArray);*/
-    //     if(event.target.name)
-    //     {
-    //         $.ajax({
-    //             url: '/removeComment/' + event.target.name,
-    //             type: 'DELETE',
-    //             success: function(result) {
-    //                 // getComments();
-    //             }
-    //         });
-    //     }
-
-    // });
 
 
   function returnInfoToScreen(){
