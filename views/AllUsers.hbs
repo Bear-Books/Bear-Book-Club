@@ -1,3 +1,38 @@
-<body>
-    <p>this is all users</p>
+<body onload="getAllUsers();">
+    <div id="allUsers">this is all users</div>
 </body>
+
+<script>
+    function getAllUsers(){
+
+        const googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+        var profile = googleUser.getBasicProfile();
+
+
+    $.ajax({
+        type:'GET',
+        url: '/getAllUserDatabase',
+        success: function (users) {
+            var userPosts = "";
+
+            console.dir(users)
+            for(var i=0; i<users.length;i++){
+                var tag = '<img src="'+ users[i].profile_pic + '"style= "border-radius: 50%; width:60px"></img>';
+                var name = users[i].user_name.replace(/ /g,'+');
+                var redirect = 'http://danu7.it.nuigalway.ie:8640/User?'+name;
+                console.log("redirect = " + redirect);
+
+
+                userPosts += "<a href="+redirect+" onclick='getUser();s'>"+tag+users[i].user_name+"</a>";
+                console.log(userPosts);
+            }
+            $("#allUsers").html(userPosts);
+        
+        }
+
+
+    });
+
+    }
+    
+</script>
