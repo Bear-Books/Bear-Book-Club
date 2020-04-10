@@ -1,4 +1,3 @@
-
 $(document).ready(
     function() {
 
@@ -10,13 +9,13 @@ $(document).ready(
 
             searchQ = searchQ.slice(0,searchQ.indexOf('&'));
             param = window.location.href.slice(window.location.href.indexOf('&') + 1);
+            // Uses the url search query to find the title or name that the user is searching
+            // params are appended by '&' characters.
         }
         
-        //console.log(searchQ);
-        
-        //console.log(param);
+        var limit = 20; 
+        // this limits the number of books displayed on the search page to 20 
 
-        var limit = 20;
         var output1 = '<div class="row"><div class="col"><a href="';
         var titleLink = "/books";
 
@@ -40,30 +39,37 @@ $(document).ready(
 
         var authorLink = "";
         var titleLink = "";
+        // Above is the html needed to generate the search list
         var validBooks = [];
         
         if (param == "undefined") {
             openLibQ1 = 'https://openlibrary.org/search.json?q=';
             openLibQ2 = '&mode=everything&has_fulltext=true';
             console.log("this works");
+            // this is the default search
         }
         else if (param == "numEd") {
             openLibQ1 = 'https://openlibrary.org/search.json?q=';
             openLibQ2 = '&sort=editions&mode=ebooks&has_fulltext=true';
+            // searches by number of editions
         }
         else if (param == "earlPub") {
             openLibQ1 = 'https://openlibrary.org/search.json?q=';
             openLibQ2 = '&sort=old&mode=ebooks&has_fulltext=true';
+            // searches by earliest published
         }
         else if (param == "recPub") {
             openLibQ1 = 'https://openlibrary.org/search.json?q=';
             openLibQ2 = '&sort=new&mode=ebooks&has_fulltext=true';
+            // searches by earliest published
         }
         if (!window.location.href.includes("User")) {
-
+            // this is how to ensure that it does not interfere with other parts of the app
             $.getJSON(openLibQ1+searchQ+openLibQ2, function(data) {
+                // here a get request for JSON of a book is made
 
                 $("#searchQ").text(searchQ.replace(/\+/g, " "));
+                // replaces all the +'s with spaces 
                 var books = data.docs;
 
                 for (var i=0; i<data.numFound; i++) {
@@ -71,6 +77,7 @@ $(document).ready(
                     try {
                         if (books[i].cover_i && books[i].isbn) {
                             validBooks.push(books[i]);
+                            // checks if the books passes the filter, adds it to validBooks array
                         } 
                     } catch (e) {}
                     /*if (books[i].author_name) {
@@ -82,35 +89,49 @@ $(document).ready(
                         }
                     } catch (e) {}
                     //console.dir(author); 
+                    // testing to see if author is logged correctly
                 }
                 $("#readingBearCon").remove();
+                // removes the readingBear gif
                 $("#full_search").css("opacity", 1);
+                // the full search container appears here
+
                 //console.dir(validBooks);
+                // testing validBooks is valid JSON
                 validBooks.sort(function(a, b){
                     
                     return a.isbn.length - b.isbn.length;
                 })
                 validBooks.reverse();
-                console.dir(validBooks);
+                // above sorts validbooks by the nost ibn's are first to last
                 
+                //console.dir(validBooks);
+                // testing to see if the sort() worked
+
                 $("#num_results").text(validBooks.length);
+                // tells the user how many books were found
                 var counter = 0;
                 for (const item of validBooks){
                     
                     try {
                         author = item.author_name.toString();
                         coverlink = "http://covers.openlibrary.org/b/id/" + item.cover_i.toString() + "-M.jpg";
-                        
+                        // this needed to catch any that didnt work
                     }
                     catch(e) {}
                     title = item.title.toString();
+                    // titles are array elements so need to be toString()'d to work
+
                     //console.log(coverlink);
                     $( "#full_search" ).append(output1+titleLink+output2+coverlink+output3+titleLink+output4+title+output5+author+output6+counter+output7+counter+output8);
                     counter++;
+                    // appends the html to the output
                 }
 
                 $(".add-book").click(function(event) {
-                    
+
+                    // this adds a book to a users reading list
+
                     if (user_signed_in == true) {
 
                         var book_index = parseInt(event.target.id.slice(-1));
@@ -196,7 +217,7 @@ $(document).ready(
                     else {
                         alert("NOT SIGNED IN");
                     }
-                   // else :
+           
 
                 });
                 
@@ -205,21 +226,25 @@ $(document).ready(
 
                     
                     window.open("/search?"+searchQ, "_self");
+                    // opens a regular query
                 }); 
         
                 $("#numEd").click(function() {
         
                     window.open("/search?"+searchQ+"&numEd", "_self");
+                    // opens a query for ranking by edition count
                 }); 
         
                 $("#earlPub").click(function() {
         
                     window.open("/search?"+searchQ+"&earlPub", "_self");
+                    // opens a query for ranking by earliest published
                 }); 
         
                 $("#recPub").click(function() {
         
                     window.open("/search?"+searchQ+"&recPub", "_self");
+                    // opens a query for ranking by latest published
                 }); 
             
         });

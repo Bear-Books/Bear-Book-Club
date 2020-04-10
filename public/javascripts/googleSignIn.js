@@ -3,7 +3,6 @@
   var global_user_pic = "";
   var searchQ = window.location.href.slice(window.location.href.indexOf('?') + 1);
 
-
   function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
