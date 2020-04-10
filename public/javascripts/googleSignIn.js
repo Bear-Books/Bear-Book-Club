@@ -163,7 +163,7 @@
               });
                   }
                   $("#profilePagePic").html(posts);
-                  $("rem-book").click(function(event) {
+                  $(".rem-book").click(function(event) {
 
                     var whichList = event.target.id.substring(0, 11);
                     var bookTitle = event.target.id.substring(11, event.target.id.length);
