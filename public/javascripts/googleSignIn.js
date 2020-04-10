@@ -91,18 +91,21 @@ var user_signed_in = false;
                       for (var counter=0; counter<booksReadingJSON.length; counter++) {
                         if (booksReadingJSON != null) {
 
-                          var booksReadingP1 = '<div class="row"><div class="col"><div id="book_title_link"><img id="book_cover_link" class="img-fluid rounded mb-3 mb-md-0" src="http://covers.openlibrary.org/b/id/';
+                          var booksReadingP1 = '<div class="row"><div class="col-5"><div id="book_title_link"><img id="book_cover_link" class="img-fluid rounded mb-3 mb-md-0" src="http://covers.openlibrary.org/b/id/';
                           var bookLink = booksReadingJSON[counter].cover_i;
-                          var booksReadingP2 = '-M.jpg" alt=""></div></div><div class="col-9"><div id="book_title_link"><h3 id="book_title">';
+                          var booksReadingP2 = '-M.jpg" alt=""></div></div><div class="col-7"><div id="book_title_link"><h3 id="book_title">';
                           var bookTitle = booksReadingJSON[counter].title_suggest;
 
                           var booksReadingP3 = '</h3></div><p id="by_word">by </p><h6 id="book_author">';
                           
                           var bookAuthor = booksReadingJSON[counter]['author_name[]'];
-                          var booksReadingP4 = ' </h6></div></div><hr>';
-                        
+                          var booksReadingP4 = ' </h6><br><button type="button" class="btn btn-info rem-book" id="removeBookR'+bookTitle;
+                          var deleteButton1 = '">Remove Book</button>';//'<div class="btn btn-warning delete-book" id="deleteBookR>Remove</div>';
+                          var booksReadingP5 = '</div></div><hr>';
+                          
+                          
                       
-                          booksReading += booksReadingP1+bookLink+booksReadingP2+bookTitle+booksReadingP3+bookAuthor+booksReadingP4;
+                          booksReading += booksReadingP1+bookLink+booksReadingP2+bookTitle+booksReadingP3+bookAuthor+booksReadingP4+deleteButton1+booksReadingP5;
                           
                         }
                       }
@@ -115,17 +118,21 @@ var user_signed_in = false;
                       for (var counter=0; counter<booksCompletedJSON.length; counter++) {
                         if (booksReadingJSON != null) {
 
-                          var booksReadingP1 = '<div class="row"><div class="col"><div id="book_title_link"><img id="book_cover_link" class="img-fluid rounded mb-3 mb-md-0" src="http://covers.openlibrary.org/b/id/';
+                          var booksReadingP1 = '<div class="row"><div class="col-5"><div id="book_title_link"><img id="book_cover_link" class="img-fluid rounded mb-3 mb-md-0" src="http://covers.openlibrary.org/b/id/';
                           var bookLink = booksCompletedJSON[counter].cover_i;
-                          var booksReadingP2 = '-M.jpg" alt=""></div></div><div class="col-9"><div id="book_title_link"><h3 id="book_title">';
+                          var booksReadingP2 = '-M.jpg" alt=""></div></div><div class="col-7"><div id="book_title_link"><h3 id="book_title">';
                           var bookTitle = booksCompletedJSON[counter].title_suggest;
 
                           var booksReadingP3 = '</h3></div><p id="by_word">by </p><h6 id="book_author">';
                           
                           var bookAuthor = booksCompletedJSON[counter]['author_name[]'];
-                          var booksReadingP4 = ' </h6></div></div><hr>';
+                          var booksReadingP4 = ' </h6><br><button type="button" class="btn btn-info rem-book" id="removeBookC'+bookTitle;
+                          var deleteButton2 = '">Remove Book</button>';
+                          var booksReadingP5 = '</div></div><hr>';
+
+                          
                         
-                          booksCompleted += booksReadingP1+bookLink+booksReadingP2+bookTitle+booksReadingP3+bookAuthor+booksReadingP4;
+                          booksCompleted += booksReadingP1+bookLink+booksReadingP2+bookTitle+booksReadingP3+bookAuthor+booksReadingP4+deleteButton2+booksReadingP5;
                           
                         }
                       }
@@ -133,7 +140,7 @@ var user_signed_in = false;
                      
                     }
                     posts += section1+section2+section3+section4+section5+section6+booksReading+section7+section8+section9+section10+section11+booksCompleted+section12+section13+section14;
-
+                    
                     user_signed_in = true;
                     global_user_name = profile.getName();
                   }
@@ -159,6 +166,52 @@ var user_signed_in = false;
               });
                   }
                   $("#profilePagePic").html(posts);
+                  $("button").click(function(event) {
+
+                    var whichList = event.target.id.substring(0, 11);
+                    var bookTitle = event.target.id.substring(11, event.target.id.length);
+                    if (whichList == "removeBookR") {
+                      console.log(whichList);
+                      console.log(bookTitle);
+                      
+                      $.ajax({
+                        url: '/deleteBook/:'+global_user_name+'/:'+whichList+'/:'+bookTitle,
+                        type: 'POST',
+                        dataType: 'json',
+                        
+                        success: function(data){
+                          
+                          console.log("Updated list!");
+                        },
+                        error: function(error){
+                            console.log("Didn't work");
+                          }
+                        });
+
+                    }
+                    if (whichList == "removeBookC") {
+
+                      console.log(whichList);
+                      console.log(bookTitle);
+                      $.ajax({
+                        url: '/deleteBook/:'+global_user_name+'/:'+whichList+'/:'+bookTitle,
+                        type: 'POST',
+                        dataType: 'json',
+                        
+                        success: function(data){
+                          
+                          console.log("Updated list!");
+                        },
+                        error: function(error){
+                            console.log("Didn't work");
+                          }
+                        });
+                    }
+                   
+                  //reload page here!
+
+                  window.open("/User?"+global_user_name,"_self");
+                  });
             },
             error: function(){
                 console.log('error on chat page function');
@@ -178,13 +231,18 @@ var user_signed_in = false;
         type: 'GET',
         success: function (data) {
             var comments = "";
-            console.dir(data[0].comment);
-            for (var i = 0; i < data[0].comment.length; i++) {
-                comments += "<div class='row justify-content-md-center pt-4'>" +
-                    "<div class='card col-12'><div class='row'>"
-                    + "<div><span style='font-weight:bold'>"+ data[0].comment[i].user_name + "</span> : " + data[0].comment[i].comment + "</div>" + "</div></div></div>";
-                console.dir("this is a comment: " + data[0].comment[i].comment);
+            
+            try {
+              //console.dir(data[0].comment);
+              for (var i = 0; i < data[0].comment.length; i++) {
+                  comments += "<div class='row justify-content-md-center pt-4'>" +
+                      "<div class='card col-12'><div class='row'>"
+                      + "<div><span style='font-weight:bold'>"+ data[0].comment[i].user_name + "</span> : " + data[0].comment[i].comment + "</div>" + "</div></div></div>";
+                  console.dir("this is a comment: " + data[0].comment[i].comment);
+              }
             }
+            catch (e) {}
+            
             console.log("testing here "+ comments);
             $("#commentSection").html(comments);
         }

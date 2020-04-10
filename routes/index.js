@@ -156,6 +156,61 @@ router.get('/getUserDatabase', function(req, res, next)
     }
   });
 
+  router.post('/deleteBook/:userName/:whichList/:bookTitle',function(req,res,next) {
+
+    var userNameFind = req.params.userName.substr(1);
+    
+    var whichList = req.params.whichList.substr(1);
+    var bookFound = req.params.bookTitle.substr(1); 
+    
+    if (whichList == "removeBookR") {
+      //console.dir(userNameFind);
+      //console.dir(whichList);
+      //console.dir(JSON);
+      console.log(userNameFind);
+      console.log(whichList);
+      console.log(bookFound);
+      UserDatabase.findOneAndUpdate(
+        {'user_name': userNameFind}, 
+        { $pull: 
+          { "to_read_list" : { "title": bookFound } } 
+        
+        },function (error, success) {
+
+          if (error) {
+              console.log(error);
+              console.log("seeing this");
+              res.json({"status": "Update did not work"});
+          } else {
+              console.log(success);
+          }
+          res.json({"status": "update successful"});
+        });
+    }
+    
+    if (whichList == "removeBookC") {
+      
+      console.log(userNameFind);
+      console.log(whichList);
+      console.log(bookFound);
+      UserDatabase.findOneAndUpdate(
+        {'user_name': userNameFind}, 
+        { $pull: 
+          { "have_read_list" : { "title": bookFound } } 
+        
+        },function (error, success) {
+
+          if (error) {
+              console.log(error);
+              console.log("seeing this");
+              res.json({"status": "Update did not work"});
+          } else {
+              console.log(success);
+          }
+          res.json({"status": "update successful"});
+        });
+    }
+  });
   /**
  * Adds comments to our database
  */
@@ -176,11 +231,7 @@ router.post('/addComment', function(req, res, next) {
           console.log(success);
       }
       res.json({"status": "update successful"});
-    });
-
-
-
-              
+    });         
 
             // Extract the request body which contains the comments
             // comment = (req.body);
