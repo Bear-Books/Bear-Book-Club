@@ -229,13 +229,15 @@
         type: 'GET',
         success: function (data) {
             var comments = "";
-            console.dir(data[0].comment);
-            for (var i = 0; i < data[0].comment.length; i++) {
-                comments += "<div class='row justify-content-md-center pt-4'>" +
-                    "<div class='card col-12'><div class='row'>"
-                    + "<div><span style='font-weight:bold'>"+ data[0].comment[i].user_name + "</span> : " + data[0].comment[i].comment + "</div>" + "</div></div></div>";
-                console.dir("this is a comment: " + data[0].comment[i].comment);
-            }
+            try {
+              console.dir(data[0].comment);
+              for (var i = 0; i < data[0].comment.length; i++) {
+                  comments += "<div class='row justify-content-md-center pt-4'>" +
+                      "<div class='card col-12'><div class='row'>"
+                      + "<div><span style='font-weight:bold'>"+ data[0].comment[i].user_name + "</span> : " + data[0].comment[i].comment + "</div>" + "</div></div></div>";
+                  console.dir("this is a comment: " + data[0].comment[i].comment);
+              }
+            }catch(e) {}
             console.log("testing here "+ comments);
             $("#commentSection").html(comments);
         }
