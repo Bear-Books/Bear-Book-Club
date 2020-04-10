@@ -4,9 +4,6 @@
   var searchQ = window.location.href.slice(window.location.href.indexOf('?') + 1);
 
 
-
-
-
   function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
@@ -69,11 +66,6 @@
                     + '</div>'+
                   '</div>';
           */
-
-
-
-
-
           $.ajax({
             // Finding a user with the same name as profile signed in with
             type: 'GET',
@@ -174,7 +166,8 @@
               });
                   }
                   $("#profilePagePic").html(posts);
-                  $("button").click(function(event) {
+                  
+                  $(".rem-book").click(function(event) {
 
                     var whichList = event.target.id.substring(0, 11);
                     var bookTitle = event.target.id.substring(11, event.target.id.length);
@@ -230,21 +223,13 @@
 
 
 
-
-
-
-
-
   function getComments() {
     console.log("Getting comments");
     $.ajax({
         url: '/getComments?user_name='+searchQ,
         type: 'GET',
         success: function (data) {
-          console.dir(data);
             var comments = "";
-            var otherBookList = "";
-            
             try {
               console.dir(data[0].comment);
               for (var i = 0; i < data[0].comment.length; i++) {
@@ -258,7 +243,6 @@
             $("#commentSection").html(comments);
         }
     });
-
 }
 
   function postComment(){
