@@ -170,42 +170,39 @@
                     if (whichList == "removeBookR") {
                       console.log(whichList);
                       console.log(bookTitle);
-                    
-                    $.ajax({
-                      url: '/deleteBook/:'+global_user_name+'/:'+whichList+'/:'+bookTitle,
-                      type: 'POST',
-                      dataType: 'json',
                       
-                      success: function(data){
+                      $.ajax({
+                        url: '/deleteBook/:'+global_user_name+'/:'+whichList+'/:'+bookTitle,
+                        type: 'POST',
+                        dataType: 'json',
                         
-
-                      },
-                      error: function(error){
-                          console.log("error saving order "+error);
-                              }
-                      });
+                        success: function(data){
+                          
+                          console.log("Updated list!");
+                        },
+                        error: function(error){
+                            console.log("Didn't work");
+                          }
+                        });
 
                     }
-                    else {
+                    if (whichList == "removeBookC") {
 
                       console.log(whichList);
                       console.log(bookTitle);
-                      /*
                       $.ajax({
-                        url: '/addUserDatabase/',
+                        url: '/deleteBook/:'+global_user_name+'/:'+whichList+'/:'+bookTitle,
                         type: 'POST',
                         dataType: 'json',
-                        data: {user_name: profile.getName()},
+                        
                         success: function(data){
-                            console.log("added the user "+data);
-                            console.log(data.user_name);
-                            console.log(name);
-  
+                          
+                          console.log("Updated list!");
                         },
                         error: function(error){
-                            console.log("error saving order "+error);
-                                }
-                        });*/
+                            console.log("Didn't work");
+                          }
+                        });
                     }
                    
 
@@ -229,13 +226,18 @@
         type: 'GET',
         success: function (data) {
             var comments = "";
-            console.dir(data[0].comment);
-            for (var i = 0; i < data[0].comment.length; i++) {
-                comments += "<div class='row justify-content-md-center pt-4'>" +
-                    "<div class='card col-12'><div class='row'>"
-                    + "<div><span style='font-weight:bold'>"+ data[0].comment[i].user_name + "</span> : " + data[0].comment[i].comment + "</div>" + "</div></div></div>";
-                console.dir("this is a comment: " + data[0].comment[i].comment);
+            
+            try {
+              //console.dir(data[0].comment);
+              for (var i = 0; i < data[0].comment.length; i++) {
+                  comments += "<div class='row justify-content-md-center pt-4'>" +
+                      "<div class='card col-12'><div class='row'>"
+                      + "<div><span style='font-weight:bold'>"+ data[0].comment[i].user_name + "</span> : " + data[0].comment[i].comment + "</div>" + "</div></div></div>";
+                  console.dir("this is a comment: " + data[0].comment[i].comment);
+              }
             }
+            catch (e) {}
+            
             console.log("testing here "+ comments);
             $("#commentSection").html(comments);
         }

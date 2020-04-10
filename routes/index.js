@@ -96,52 +96,56 @@ router.get('/getUserDatabase', function(req, res, next)
   router.post('/deleteBook/:userName/:whichList/:bookTitle',function(req,res,next) {
 
     var userNameFind = req.params.userName.substr(1);
-
-    console.log(userNameFind);
     
     var whichList = req.params.whichList.substr(1);
     var bookFound = req.params.bookTitle.substr(1); 
-    console.log(whichList);
-    console.log(bookFound);
-    if (whichList == "rList") {
+    
+    if (whichList == "removeBookR") {
       //console.dir(userNameFind);
       //console.dir(whichList);
       //console.dir(JSON);
-      UserDatabase.update({user_name: userNameFind},{
+      console.log(userNameFind);
+      console.log(whichList);
+      console.log(bookFound);
+      UserDatabase.findOneAndUpdate(
+        {'user_name': userNameFind}, 
+        { $pull: 
+          { "to_read_list" : { "title": bookFound } } 
+        
+        },function (error, success) {
 
-        $pull: { "to_read_list" : { title: bookTitle } } },
-        false,
-        true 
-      ,  function (error, success) {
-
-        if (error) {
-            console.log(error);
-        } else {
-            console.log(success);
-        }
-        res.json({"status": "update successful"});
-      });
+          if (error) {
+              console.log(error);
+              console.log("seeing this");
+              res.json({"status": "Update did not work"});
+          } else {
+              console.log(success);
+          }
+          res.json({"status": "update successful"});
+        });
     }
     
-    if (whichList == "cList") {
-      //console.dir(userNameFind);
-      //console.dir(whichList);
-      //console.dir(JSON);
-      UserDatabase.update({user_name: userNameFind},{
+    if (whichList == "removeBookC") {
+      
+      console.log(userNameFind);
+      console.log(whichList);
+      console.log(bookFound);
+      UserDatabase.findOneAndUpdate(
+        {'user_name': userNameFind}, 
+        { $pull: 
+          { "have_read_list" : { "title": bookFound } } 
+        
+        },function (error, success) {
 
-        $pull: {
-          have_read_list: {title: bookTitle}
-        }
-      }
-      ,  function (error, success) {
-
-        if (error) {
-            console.log(error);
-        } else {
-            console.log(success);
-        }
-        res.json({"status": "update successful"});
-      });
+          if (error) {
+              console.log(error);
+              console.log("seeing this");
+              res.json({"status": "Update did not work"});
+          } else {
+              console.log(success);
+          }
+          res.json({"status": "update successful"});
+        });
     }
   });
   /**
