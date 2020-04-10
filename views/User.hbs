@@ -1,63 +1,62 @@
+
+<!-- Import bootstrap -->
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<!-- Import ajax -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!--Link to css -->
 <link rel='stylesheet' href='/stylesheets/userPage.css'/>
+<!--Import Font awesome -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<body onclick` = "getUserPage()">
+
+<!-- -->
+<body>
   <p id = "profilePagePic">Checking user page</p>
     
    <!--USER PROFILE STUFF GOES HERE -->
   <div class="container">
-<div class="row justify-content-md-center">
-<div class="card col-md-6">
-<br>
-<textarea class="form-control" rows="3" cols="50" id="inputPost"
-placeholder="Got something to say?" maxlength="280"></textarea>
-<label id="charRemaining" for="inputPost">280</label>
-<div class="row">
-<div class="col-md-3">
-<!--Camera-->
-<i class="fa fa-camera-retro fa-lg"></i>
-</div>
-<div class="col-md-3">
-<!--Video-->
-<i class="fas fa-video fa-lg"></i>
-</div>
-<div class="col-md-3">
-<!--Bar Chart-->
-<i class="fa fa-chart-bar fa-lg"></i>
-</div>
-<div class="col-md-3">
-<!-- Button -->
-<button type="text" id="postBtn" class="btn btnprimary" onclick="postComment()">Post</button>
-</div>
-</div>
-<br>
-<div id="commentSection" style="color: black;"></div>
-</div>
-</div> </div>
-
-
+    <div class="row justify-content-md-center">
+      <div class="card col-md-6">
+      <br>
+      <!--Input area for comments -->
+        <textarea class="form-control" rows="3" cols="50" id="inputPost"
+        placeholder="Got something to say?" maxlength="280"></textarea>
+        <label id="charRemaining" for="inputPost">280</label>
+          <div class="row">
+            <div class="col-md-3">
+            <!--Camera-->
+            <i class="fa fa-camera-retro fa-lg"></i>
+            </div>
+            <div class="col-md-3">
+            <!--Video-->
+            <i class="fas fa-video fa-lg"></i>
+            </div>
+            <div class="col-md-3">
+            <!--Bar Chart-->
+            <i class="fa fa-chart-bar fa-lg"></i>
+            </div>
+            <div class="col-md-3">
+            <!-- Button -->
+              <button type="text" id="postBtn" class="btn btnprimary" onclick="postComment()">Post</button>
+        </div>
+  </div>
+    <br>
+    <div id="commentSection" style="color: black;"></div>
+            </div>
+</div></div>
 
     <script>
-//stack overflow said use this to 
-//fix google sign in loading info problems
+
+// onLoad load the google sign in api
     function onLoad() {
         gapi.load('auth2', function() {
           gapi.auth2.init();
         });
-
-        
       }      
-    function returnGoogleSignInInfo(){
-            //if no user matches the handlebars string, check for google sign in
-                
-                //console.log(profile);
-            
-          }
-    </script>
-    <div id="okay" onload = "returnGoogleSignInInfo();"></div>
 
+    </script>
+    <!-- script for general search button which gets book from url-->
     <script src="/javascripts/general_search_button.js"></script>
+    <!-- script for search_books which will display books to search page-->
     <script src="/javascripts/search_books.js"></script>
 </body>
 

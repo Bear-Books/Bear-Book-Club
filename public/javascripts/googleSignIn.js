@@ -35,7 +35,7 @@
           var posts = '<div id = "container">';
           
           var section1 = '<div class="row"><div class="col-sm-3"><div class="card"><div class="card-body">' + tag;
-          var section2 = '<h5 class="card-title">'+searchQ+'</h5><p class="card-text">';
+          var section2 = '<h5 class="card-title">'+searchQ+'</h5><p class="card-text"><a href="http://danu7.it.nuigalway.ie:8620/allUsers">All Users</a><br><a href="http://danu7.it.nuigalway.ie:8620/chat">Chat</a>';
           var section3 = '</p>';
           var section4 = '';
 

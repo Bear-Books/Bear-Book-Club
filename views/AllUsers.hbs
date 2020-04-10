@@ -1,55 +1,58 @@
-<body onload="getAllUsers();">
+<!--This page will display all users -->
+<body onload="getAllUsers();"> 
     <div id="allUsers">this is all users</div>
 </body>
 
 <script>
+    // Functoin to retrieve all users from the database and display them
     function getAllUsers(){
 
+        // variables needed to access the google sign in info
         const googleUser = gapi.auth2.getAuthInstance().currentUser.get();
         var profile = googleUser.getBasicProfile();
 
 
+// GET request to database to retrieve all users currently in database
     $.ajax({
         type:'GET',
         url: '/getAllUserDatabase',
         success: function (users) {
-            var userPosts = "";
+            var userPosts = ""; // Variable which contains all HTML output
             searchQ = "";
 
-            console.dir(users)
-            for(var i=0; i<users.length;i++){
-                var tag = "";
+            //console.dir(users)  Checking to see if users return was successfull
 
-                if(users[i].profile_pic){
+            // loop to run through all users in the database and append them to userPosts
+            for(var i=0; i<users.length;i++){
+                var tag = ""; //  variable to store user profiles pic url
+
+                if(users[i].profile_pic){ // if user has a profile pic than append it
                      tag = '<img src="'+ users[i].profile_pic + '"style= "border-radius: 50%; width:60px"></img>';
                 }
-                else{
+                else{ // if not use this image
                     tag = '<img src="https://w0.pngwave.com/png/268/379/drawing-paper-jpeg-bear-meme-png-clip-art.png" style= "border-radius: 50%; width:60px"></img>';
                 }
 
-
-
-                var name = users[i].user_name.replace(/ /g,'+');
-                var redirect = 'http://danu7.it.nuigalway.ie:8640/User?'+name;
-                console.log("redirect = " + redirect);
+                var name = users[i].user_name.replace(/ /g,'+'); // Replace all spaces in name with a +
+                var redirect = 'http://danu7.it.nuigalway.ie:8620/User?'+name; // redirect variable to link to a user 
+                //console.log("redirect = " + redirect); testing redirect
                 name = users[i].user_name.replace(/ /g, '+');
-                console.log("users replaced name: " + name);
+               // console.log("users replaced name: " + name); testing is users name replaced correctly
 
-
-                userPosts += "<div class ='names' id='otherBookList" + name +"'>"+tag+users[i].user_name+"</div>";
+                // adding a link to html
+                userPosts += "<a href='"+redirect+"' class ='names' id='otherBookList" + name +"'>"+tag+users[i].user_name+"</a>";
                 
-                console.log(userPosts);
+                //console.log(userPosts); testing if userPosts was made correctly
             }
-            $("#allUsers").html(userPosts);
-            $('.names').click(function(event){
+            $("#allUsers").html(userPosts); // displaying userPosts in div
+            $('.names').click(function(event){ // when clicked this function is run
 
-                console.log(event.target.id);
-                var Othername = event.target.id.substring(13, event.target.id.length);
-                console.log(Othername);
+                //console.log(event.target.id); test if it was getting the name correctly
+                var Othername = event.target.id.substring(13, event.target.id.length); // used event.target to get name of each user, 
+                                                                                        // It will look past the first 13 characters and read the rest which is the name
+                // console.log(Othername); Check it got the name correctly
 
-                getOtherBookList(Othername, tag);
-
-
+                //getOtherBookList(Othername, tag); // We tried to get this function to return a different users book list but couldnt get the logic figure out in time
             });
         }
 
