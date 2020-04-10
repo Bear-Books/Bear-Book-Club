@@ -14,20 +14,43 @@
         url: '/getAllUserDatabase',
         success: function (users) {
             var userPosts = "";
+            searchQ = "";
 
             console.dir(users)
             for(var i=0; i<users.length;i++){
-                var tag = '<img src="'+ users[i].profile_pic + '"style= "border-radius: 50%; width:60px"></img>';
+                var tag = "";
+
+                if(users[i].profile_pic){
+                     tag = '<img src="'+ users[i].profile_pic + '"style= "border-radius: 50%; width:60px"></img>';
+                }
+                else{
+                    tag = '<img src="https://w0.pngwave.com/png/268/379/drawing-paper-jpeg-bear-meme-png-clip-art.png" style= "border-radius: 50%; width:60px"></img>';
+                }
+
+
+
                 var name = users[i].user_name.replace(/ /g,'+');
                 var redirect = 'http://danu7.it.nuigalway.ie:8640/User?'+name;
                 console.log("redirect = " + redirect);
+                name = users[i].user_name.replace(/ /g, '+');
+                console.log("users replaced name: " + name);
 
 
-                userPosts += "<a href="+redirect+" onclick='getUser();s'>"+tag+users[i].user_name+"</a>";
+                userPosts += "<div class ='names' id='otherBookList" + name +"'>"+tag+users[i].user_name+"</div>";
+                
                 console.log(userPosts);
             }
             $("#allUsers").html(userPosts);
-        
+            $('.names').click(function(event){
+
+                console.log(event.target.id);
+                var Othername = event.target.id.substring(13, event.target.id.length);
+                console.log(Othername);
+
+                getOtherBookList(Othername, tag);
+
+
+            });
         }
 
 

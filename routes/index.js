@@ -26,25 +26,25 @@ router.get('/getMessageDatabase', function(req, res, next)
     });
 });
 
-router.get('/getOneUser', function(req, res, next){
-  var name = req.query.user_name;
-  console.log("this is the single user: "+name);
-  UserDatabase.findOne({user_name:name}, function(err, docs){
-    if(err) res.send(err);
-    console.log(docs);
-    res.json(docs);
-    /*
-    if(docs.length){
-      console.log(docs.length);
-      console.log("found "+docs.user_name);
-      res.json(docs);
+// router.get('/getOneUser', function(req, res, next){
+//   var name = req.query.user_name;
+//   console.log("this is the single user: "+name);
+//   UserDatabase.findOne({user_name:name}, function(err, docs){
+//     if(err) res.send(err);
+//     console.log(docs);
+//     res.json(docs);
+//     /*
+//     if(docs.length){
+//       console.log(docs.length);
+//       console.log("found "+docs.user_name);
+//       res.json(docs);
       
-    }else{
-      console.log('insert new username');
-    }
-    */
-  });
-});
+//     }else{
+//       console.log('insert new username');
+//     }
+//     */
+//   });
+// });
 
 
 /**
@@ -65,6 +65,29 @@ router.post('/addMessageDatabase', function(req, res, next) {
       });
   });
 });
+
+router.get('/getOneUser/:userName/:otherUser'), function(req, res, next){
+
+  var userNameFind = req.params.userName.substr(1);
+  var otherUserName = req.params.otherUser;
+  console.dir(userNameFind + otherUserName);
+
+
+
+  UserDatabase.find({user_name:otherUserName}, function (err, users){
+    if(users.length>0){
+    console.log("Found other user");
+    }
+    else{
+      console.log("User not found");
+    }
+    if(err){
+      res,send(err);
+    }
+    res.json(users);
+  }
+  )
+};
 
 
 
@@ -365,6 +388,11 @@ router.get('/Login', function(req, res, next) {
 router.get('/User', function(req, res, next) {
   var user_name = req.query.username;
   res.render('User', { username: user_name });
+});
+
+router.get('/otherUser', function(req, res, next) {
+  var user_name = req.query.username;
+  res.render('otherUser', { username: user_name });
 });
 
 /* GET AllUsers page */
