@@ -170,16 +170,14 @@
                     if (whichList == "removeBookR") {
                       console.log(whichList);
                       console.log(bookTitle);
-
+                    
                     $.ajax({
-                      url: '/addUserDatabase/',
+                      url: '/deleteBook/:'+global_user_name+'/:'+whichList+'/:'+bookTitle,
                       type: 'POST',
                       dataType: 'json',
-                      data: {user_name: profile.getName()},
+                      
                       success: function(data){
-                          console.log("added the user "+data);
-                          console.log(data.user_name);
-                          console.log(name);
+                        
 
                       },
                       error: function(error){
@@ -192,7 +190,7 @@
 
                       console.log(whichList);
                       console.log(bookTitle);
-
+                      /*
                       $.ajax({
                         url: '/addUserDatabase/',
                         type: 'POST',
@@ -207,7 +205,7 @@
                         error: function(error){
                             console.log("error saving order "+error);
                                 }
-                        });
+                        });*/
                     }
                    
 

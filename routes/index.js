@@ -93,23 +93,25 @@ router.get('/getUserDatabase', function(req, res, next)
     }
   });
 
-  router.post('/deleteBook:userName/:whichList/:bookTitle',function(req,res,next) {
+  router.post('/deleteBook/:userName/:whichList/:bookTitle',function(req,res,next) {
 
     var userNameFind = req.params.userName.substr(1);
-    userNameFind = userNameFind.substr(0, userNameFind.length-1);
-    var whichList = req.params.whichList;
-    var bookFound = req.params.bookTitle; 
 
+    console.log(userNameFind);
+    
+    var whichList = req.params.whichList.substr(1);
+    var bookFound = req.params.bookTitle.substr(1); 
+    console.log(whichList);
+    console.log(bookFound);
     if (whichList == "rList") {
       //console.dir(userNameFind);
       //console.dir(whichList);
       //console.dir(JSON);
       UserDatabase.update({user_name: userNameFind},{
 
-        $pull: {
-          have_read_list: {title: bookTitle}
-        }
-      }
+        $pull: { "to_read_list" : { title: bookTitle } } },
+        false,
+        true 
       ,  function (error, success) {
 
         if (error) {
