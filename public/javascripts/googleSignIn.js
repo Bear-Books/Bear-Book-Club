@@ -205,7 +205,9 @@
                         });
                     }
                    
+                  //reload page here!
 
+                  window.open("/User?"+global_user_name,"_self");
                   });
             },
             error: function(){
