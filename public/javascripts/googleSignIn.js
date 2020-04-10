@@ -3,6 +3,7 @@
   var global_user_pic = "";
   var searchQ = window.location.href.slice(window.location.href.indexOf('?') + 1);
 
+  //google sign in code
   function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
@@ -289,6 +290,7 @@
 
 
 
+    
   function returnInfoToScreen(){
     
     const googleUser = gapi.auth2.getAuthInstance().currentUser.get();
@@ -297,6 +299,8 @@
     
   }
   
+
+  //google sign out code
   function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {

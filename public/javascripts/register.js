@@ -1,3 +1,5 @@
+//old code, not used anymore
+
 $(document).ready(
     function() {        
         /**

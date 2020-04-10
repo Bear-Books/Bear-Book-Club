@@ -1,3 +1,5 @@
+//old code
+
 $(document).ready(function() {
 
     // console.log("started");
